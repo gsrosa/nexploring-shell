@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { defineConfig, loadEnv } from 'vite';
+import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react-swc';
 import federation from '@originjs/vite-plugin-federation';
 import { buildRemotes } from './module-federation/remotes';
@@ -10,6 +11,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [
+      tailwindcss(),
       react(),
       federation({
         name: 'shell',

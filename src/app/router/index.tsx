@@ -1,27 +1,36 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { ShellLayout } from '@/app/layouts/ShellLayout';
-import { RemoteRoute } from '@/microfrontends/RemoteRoute';
+import { ShellLayout } from '@/components/shell-layout';
+import { RemoteRoute } from '@/microfrontends/remote-route';
 import {
   getEnabledMicrofrontends,
   getMicrofrontendComponent,
 } from '@/microfrontends/registry';
-import { HomePage } from './HomePage';
-import { ROUTES } from './routes';
+import { ROUTES } from '@/shared/constants/shell-routes';
+import { HomePage } from '@/features/home';
 
-const mfeRoutes = getEnabledMicrofrontends().map((mfe) => ({
-  path: mfe.routePath,
-  element: (
-    <RemoteRoute
-      name={mfe.name}
-      module={getMicrofrontendComponent(mfe.remoteName)}
-    />
-  ),
-}));
+/**
+ * Child routes under ShellLayout:
+ * - Index (/) → HomePage
+ * - /search/* → searchApp (Search MFE)
+ * - /assistant/* → aiAssistant (AI Assistant MFE)
+ */
+const shellChildren = [
+  { index: true, element: <HomePage /> },
+  ...getEnabledMicrofrontends().map((mfe) => ({
+    path: mfe.routePath,
+    element: (
+      <RemoteRoute
+        name={mfe.name}
+        module={getMicrofrontendComponent(mfe.remoteName)}
+      />
+    ),
+  })),
+];
 
 export const router = createBrowserRouter([
   {
     path: ROUTES.HOME,
     element: <ShellLayout />,
-    children: [{ index: true, element: <HomePage /> }, ...mfeRoutes],
+    children: shellChildren,
   },
 ]);

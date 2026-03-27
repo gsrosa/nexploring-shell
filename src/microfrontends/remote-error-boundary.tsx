@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
-import { monitoring } from '@/services/monitoring';
+import { monitoring } from '@/shared/services/monitoring';
 
 interface Props {
   remoteName: string;
@@ -37,13 +37,22 @@ export class RemoteErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="remote-error" role="alert">
-          <h2>Failed to load {this.props.remoteName}</h2>
-          <p>
+        <div
+          className="min-h-[50vh] flex flex-col items-center justify-center gap-4 px-6 py-12 text-center bg-neutral-50 text-neutral-700"
+          role="alert"
+        >
+          <h2 className="text-lg font-bold m-0">Failed to load {this.props.remoteName}</h2>
+          <p className="text-sm text-neutral-500 max-w-md m-0">
             {this.state.error?.message ??
               'The application could not be loaded. It may be temporarily unavailable.'}
           </p>
-          <button onClick={this.handleRetry}>Retry</button>
+          <button
+            type="button"
+            onClick={this.handleRetry}
+            className="rounded-xl bg-primary-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-primary-600 cursor-pointer border-none"
+          >
+            Retry
+          </button>
         </div>
       );
     }

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import type { ComponentType, LazyExoticComponent } from 'react';
-import { loadRemoteModule } from '@/microfrontends/loadRemoteModule';
+import { loadRemoteModule } from '@/microfrontends/load-remote-module';
 
 interface UseRemoteModuleResult {
   Component: LazyExoticComponent<ComponentType>;

@@ -154,8 +154,8 @@ Reusable hooks not tied to a specific feature.
 Examples:
 
 ```
-src/hooks/useFeatureFlag.ts
-src/hooks/useRemoteModule.ts
+src/hooks/use-feature-flag.ts
+src/hooks/use-remote-module.ts
 ```
 
 Hooks in this directory should be **generic and reusable**.
@@ -189,7 +189,7 @@ Examples:
 
 ```
 src/microfrontends/registry
-src/microfrontends/loadRemoteModule
+src/microfrontends/load-remote-module.ts
 src/microfrontends/types
 ```
 
@@ -209,8 +209,8 @@ Examples:
 
 ```
 src/config/env.ts
-src/config/featureFlags.ts
-src/config/appConfig.ts
+src/config/feature-flags.ts
+src/config/app-config.ts
 ```
 
 This folder centralizes runtime configuration.

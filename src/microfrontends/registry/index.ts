@@ -1,13 +1,17 @@
 import type { ComponentType, LazyExoticComponent } from 'react';
-import type { FeatureFlagKey } from '@/config/featureFlags';
-import { isFeatureEnabled } from '@/config/featureFlags';
-import { loadRemoteModule } from '@/microfrontends/loadRemoteModule';
+import type { FeatureFlagKey } from '@/config/feature-flags';
+import { isFeatureEnabled } from '@/config/feature-flags';
+import { loadRemoteModule } from '@/microfrontends/load-remote-module';
+import { ROUTES } from '@/shared/constants/shell-routes';
 
 interface MicrofrontendConfig {
   name: string;
   remoteName: string;
   exposedModule: string;
+  /** Route path (splat) where this MFE is rendered, e.g. /search/* */
   routePath: string;
+  /** Base path for nav links, e.g. /search */
+  navPath: string;
   navigationLabel: string;
   featureFlag: FeatureFlagKey;
 }
@@ -17,7 +21,8 @@ export const microfrontendRegistry: Record<string, MicrofrontendConfig> = {
     name: 'Search',
     remoteName: 'searchApp',
     exposedModule: 'App',
-    routePath: '/search/*',
+    routePath: ROUTES.SEARCH_SPLAT,
+    navPath: ROUTES.SEARCH,
     navigationLabel: 'Search',
     featureFlag: 'enableSearchApp',
   },
@@ -25,7 +30,8 @@ export const microfrontendRegistry: Record<string, MicrofrontendConfig> = {
     name: 'AI Assistant',
     remoteName: 'aiAssistant',
     exposedModule: 'App',
-    routePath: '/assistant/*',
+    routePath: ROUTES.ASSISTANT_SPLAT,
+    navPath: ROUTES.ASSISTANT,
     navigationLabel: 'AI Assistant',
     featureFlag: 'enableAIAssistant',
   },
