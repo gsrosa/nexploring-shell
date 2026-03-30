@@ -1,0 +1,60 @@
+/*
+  home.css — pure CSS kept only for what Tailwind can't express:
+    • @keyframes
+    • JS-toggled .fade-up / .in-view animation classes
+    • ::after pseudo-element (bottom-nav active dot)
+    • scrollbar-width / ::-webkit-scrollbar (no Tailwind utility)
+    • Complex CSS selectors that would require arbitrary variants
+*/
+
+/* ─── Keyframes ──────────────────────────────────────────────────────────────── */
+@keyframes hp-blink   { 0%,100%{ opacity:1 } 50%{ opacity:0 } }
+@keyframes hp-bounce  { 0%,80%,100%{ transform:translateY(0) } 40%{ transform:translateY(-6px) } }
+@keyframes hp-fade-up { from{ opacity:0; transform:translateY(12px) } to{ opacity:1; transform:none } }
+
+/* ─── Scroll-reveal (JS toggles .in-view) ────────────────────────────────────── */
+.fade-up         { opacity: 0; transform: translateY(28px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.fade-up.in-view { opacity: 1; transform: none; }
+
+/* ─── Bottom nav: desktop must not show (belt-and-suspenders with Tailwind md:!hidden) ─ */
+@media (min-width: 768px) {
+  .bottom-nav {
+    display: none !important;
+  }
+}
+
+/* ─── Bottom nav active dot (pseudo-element) ─────────────────────────────────── */
+.bottom-nav-active::after {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #ff5a35; /* Ember primary-500 */
+  margin-top: 1px;
+}
+
+/* ─── Scrollbar hiding (destinations horizontal scroll) ──────────────────────── */
+.no-scrollbar                    { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ─── Cursor blink (AI chat typewriter) ──────────────────────────────────────── */
+.hp-cursor { animation: hp-blink 1s infinite; }
+
+/* ─── AI chat reply entrance ─────────────────────────────────────────────────── */
+.hp-reply-in { animation: hp-fade-up 0.4s ease; }
+
+/* ─── Stitch-inspired home utilities ─────────────────────────────────────────── */
+.glass-panel-home {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(17, 19, 23, 0.72);
+}
+
+.hero-gradient-cta {
+  background: linear-gradient(135deg, #ffb5a0 0%, #ff5722 100%);
+}
+
+.text-glow-hero {
+  text-shadow: 0 0 24px rgba(255, 181, 160, 0.35);
+}

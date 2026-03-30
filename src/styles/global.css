@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+/* ─── Stitch / Material dynamic palette (from Google Stitch project) ───────────
+   Maps to Tailwind utilities used across the shell + home.
+─────────────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Primary — coral / deep orange (Stitch primary + primary_container) */
+  --color-primary-50:  #2a1814;
+  --color-primary-100: #3d221c;
+  --color-primary-200: #4a2520;
+  --color-primary-300: #ffb5a0;
+  --color-primary-400: #ffb5a0;
+  --color-primary-500: #ff5722;
+  --color-primary-600: #e64d1f;
+  --color-primary-700: #ffdbd1;
+
+  /* Auxiliary — cyan (Stitch secondary + secondary_container) */
+  --color-auxiliary-50:  #0a1e22;
+  --color-auxiliary-100: #0c2830;
+  --color-auxiliary-200: #123540;
+  --color-auxiliary-300: #00e3fd;
+  --color-auxiliary-400: #bdf4ff;
+  --color-auxiliary-500: #00daf3;
+  --color-auxiliary-600: #00616d;
+
+  /* Neutrals — Stitch surfaces & on-surface */
+  --color-neutral-50:  #111317;
+  --color-neutral-100: #1a1c20;
+  --color-neutral-200: #1e2024;
+  --color-neutral-300: #282a2e;
+  --color-neutral-400: #414754;
+  --color-neutral-500: #8b90a0;
+  --color-neutral-600: #c1c6d7;
+  --color-neutral-700: #e2e2e8;
+
+  --color-surface:        #111317;
+  --color-surface-muted:  #1a1c20;
+  --color-surface-border: #414754;
+
+  --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Noto Serif", ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+}
+
+/* ─── Legacy vars (atlas-ui compat) — aligned with Stitch dark ──────────────── */
+:root {
+  --atlas-primary-50:  #ffdbd1;
+  --atlas-primary-100: #ffb5a0;
+  --atlas-primary-200: #ffb5a0;
+  --atlas-primary-300: #ff8a65;
+  --atlas-primary-400: #ff7a5c;
+  --atlas-primary-500: #ff5722;
+  --atlas-primary-600: #e64d1f;
+  --atlas-primary-700: #c42d10;
+
+  --atlas-auxiliary-300: #00e3fd;
+  --atlas-auxiliary-400: #bdf4ff;
+  --atlas-auxiliary-500: #00daf3;
+  --atlas-auxiliary-600: #0891b2;
+
+  --atlas-neutral-50:  #111317;
+  --atlas-neutral-100: #1a1c20;
+  --atlas-neutral-200: #282a2e;
+  --atlas-neutral-300: #414754;
+  --atlas-neutral-400: #8b90a0;
+  --atlas-neutral-500: #c1c6d7;
+  --atlas-neutral-600: #c1c6d7;
+  --atlas-neutral-700: #e2e2e8;
+
+  --atlas-surface-bg:     #111317;
+  --atlas-surface-muted:  #1a1c20;
+  --atlas-surface-border: #414754;
+  --atlas-surface-ring:   #ff5722;
+
+  --atlas-surface-background:         #111317;
+  --atlas-surface-foreground:         #e2e2e8;
+  --atlas-surface-muted-foreground:   #8b90a0;
+  --atlas-color-primary-50:           #ffdbd1;
+  --atlas-color-primary-600:          #ff5722;
+  --atlas-color-primary-700:          #e64d1f;
+  --atlas-color-neutral-100:          #1a1c20;
+  --atlas-color-danger-600:           #e11d48;
+  --atlas-shadow-sm:                  0 12px 40px rgba(0, 0, 0, 0.35);
+  --atlas-radius-md:                  6px;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: #111317;
+  color: #e2e2e8;
+}
+
+#root {
+  height: 100%;
+  isolation: isolate;
+}

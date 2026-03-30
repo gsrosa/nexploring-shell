@@ -1,0 +1,13 @@
+---
+alwaysApply: true
+---
+# UI Guidelines
+
+## Styling
+- Use TailwindCSS as the primary CSS framework for all styling
+- Always use Tailwind classes for styling HTML elements; avoid using CSS or tags.
+- Utilize the `cn` helper function for combining multiple CSS classes
+
+## Accessibility
+- Follow WAI-ARIA design patterns for all interactive elements
+
