@@ -1,53 +1,75 @@
-import { HOME_FEATURE_ITEMS } from '../data/feature-items';
+import { cn } from '@gsrosa/atlas-ui';
+import { HOME_FEATURE_BLOCKS } from '../data/home-features';
 import { FadeUp } from './fade-up';
-import { FeatureIcon } from './home-icons';
 
 export function FeaturesSection() {
   return (
     <section
       aria-labelledby="features-heading"
-      className="relative z-[1] bg-neutral-50 px-4 pb-20 pt-16 sm:px-5 sm:pb-24 sm:pt-20 md:px-10 md:pb-32 md:pt-28"
+      className="bg-neutral-50 px-6 py-24 md:px-12 md:py-32 lg:px-20"
     >
       <div className="mx-auto max-w-[1200px]">
         <FadeUp>
-          <div className="mb-12 flex flex-col gap-8 md:mb-20 lg:mb-20 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-2xl">
+          <div className="mb-16 flex flex-wrap items-end justify-between gap-6 md:mb-20">
+            <div className="max-w-[560px]">
+              <p className="mb-4 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-primary-600">
+                The advantage
+              </p>
               <h2
                 id="features-heading"
-                className="m-0 mb-4 font-display text-2xl leading-tight text-neutral-700 italic sm:text-3xl md:text-4xl lg:text-[2.75rem]"
+                className="mb-4 font-display text-[clamp(1.6rem,3.5vw,2.8rem)] font-bold italic leading-[1.12] text-neutral-700"
               >
-                Cognitive exploration,
+                Not another trip planner.
                 <br />
-                not just coordination.
+                <span className="bg-gradient-to-r from-primary-500 to-auxiliary-400 bg-clip-text font-display font-bold not-italic text-transparent">
+                  A trip intelligence engine.
+                </span>
               </h2>
-              <p className="m-0 max-w-md text-base font-light leading-relaxed text-neutral-600 md:text-lg">
-                We move beyond static lists to living plans. Atlas learns your pace, then adapts when the
-                weather — or your curiosity — shifts.
+              <p className="font-sans text-[15px] font-light leading-[1.75] text-neutral-600">
+                Atlas processes terrain, weather, local safety data, and your personal travel profile to build
+                plans that actually work on the ground.
               </p>
-            </div>
-            <div className="shrink-0 font-sans text-xs tracking-widest text-auxiliary-400 uppercase">
-              01 / The advantage
             </div>
           </div>
         </FadeUp>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
-          {HOME_FEATURE_ITEMS.map((f, i) => (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {HOME_FEATURE_BLOCKS.map((f, i) => (
             <FadeUp key={f.title} delay={i * 80}>
-              <article className="group flex h-full flex-col rounded-xl border border-transparent bg-neutral-100 p-6 sm:p-8 md:p-10 hover:border-white/[0.06] hover:bg-neutral-200">
-                <div className="mb-6 flex h-12 w-12 items-center justify-center text-primary-400">
-                  <span className="scale-125">
-                    <FeatureIcon index={i} />
-                  </span>
+              <div
+                className={cn(
+                  'group relative h-full overflow-hidden rounded-2xl border border-neutral-200/80 bg-neutral-100/80 p-8 transition-all duration-300 md:p-10',
+                  'hover:border-neutral-400 hover:bg-neutral-200 hover:shadow-[0_24px_70px_rgba(0,0,0,0.35)]',
+                )}
+              >
+                <div
+                  className={cn(
+                    'pointer-events-none absolute right-0 top-0 size-32 rounded-full opacity-0 blur-[80px] transition-opacity duration-300 group-hover:opacity-100',
+                    f.accent === 'primary' ? 'bg-primary-400/25' : 'bg-auxiliary-400/20',
+                  )}
+                />
+                <div
+                  className={cn(
+                    'mb-6 flex size-12 items-center justify-center rounded-xl transition-colors',
+                    f.accent === 'primary'
+                      ? 'bg-primary-500/10 group-hover:bg-primary-500/18'
+                      : 'bg-auxiliary-500/10 group-hover:bg-auxiliary-500/18',
+                  )}
+                >
+                  <f.icon
+                    className={cn(
+                      'size-5',
+                      f.accent === 'primary' ? 'text-primary-600' : 'text-auxiliary-600',
+                    )}
+                    aria-hidden
+                    strokeWidth={2}
+                  />
                 </div>
-                <h3 className="m-0 mb-3 font-display text-lg text-neutral-700 md:text-2xl">
+                <h3 className="mb-3 font-display text-lg font-semibold leading-tight text-neutral-700">
                   {f.title}
                 </h3>
-                <p className="m-0 mb-4 flex-1 font-sans text-sm leading-relaxed text-neutral-600">{f.body}</p>
-                <div className="font-sans text-[10px] tracking-widest text-neutral-500 uppercase opacity-0 group-hover:opacity-100">
-                  Atlas intelligence
-                </div>
-              </article>
+                <p className="font-sans text-[14px] font-light leading-[1.7] text-neutral-600">{f.body}</p>
+              </div>
             </FadeUp>
           ))}
         </div>

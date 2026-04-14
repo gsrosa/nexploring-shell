@@ -4,6 +4,7 @@ import { RemoteRoute } from '@/microfrontends/remote-route';
 import {
   getEnabledMicrofrontends,
   getMicrofrontendComponent,
+  getMicrofrontendSkeleton,
 } from '@/microfrontends/registry';
 import { ROUTES } from '@/shared/constants/shell-routes';
 import { HomePage } from '@/features/home';
@@ -20,6 +21,7 @@ const shellChildren = [
       <RemoteRoute
         name={mfe.name}
         module={getMicrofrontendComponent(mfe.remoteName)}
+        skeleton={getMicrofrontendSkeleton(mfe.remoteName)}
         requireAuth={mfe.requireAuth}
       />
     ),

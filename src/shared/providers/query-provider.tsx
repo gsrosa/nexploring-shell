@@ -15,24 +15,25 @@ function trpcUrl(): string {
   return `${base}/trpc`;
 }
 
+// Module-level singleton — survives React StrictMode double-mounts, HMR, and
+// error-boundary retries. Prevents auth/session cache from being wiped and
+// forcing "Checking your session…" on every protected-route visit.
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,   // 1 min — skip refetch on quick re-navigations
+      gcTime: 10 * 60 * 1000, // 10 min — keep unused entries alive
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 interface Props {
   children: ReactNode;
 }
 
 export function QueryProvider({ children }: Props) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: 60 * 1000,
-            retry: 1,
-            refetchOnWindowFocus: false,
-          },
-        },
-      }),
-  );
-
   const [trpcClient] = useState(() =>
     trpc.createClient({
       links: [

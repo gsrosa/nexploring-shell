@@ -44,3 +44,15 @@ declare module 'userApp/App' {
   const Component: ComponentType;
   export default Component;
 }
+
+declare module 'aiAssistant/Skeleton' {
+  import type { ComponentType } from 'react';
+  const Component: ComponentType;
+  export default Component;
+}
+
+declare module 'userApp/Skeleton' {
+  import type { ComponentType } from 'react';
+  const Component: ComponentType;
+  export default Component;
+}

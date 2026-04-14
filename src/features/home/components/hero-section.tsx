@@ -1,17 +1,19 @@
-import { Plane, Sparkles } from 'lucide-react';
-import { useState, type KeyboardEvent } from 'react';
+import { Button } from '@gsrosa/atlas-ui';
+import { ArrowRight, ChevronDown, MessageSquare, Sparkles, Zap } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthUiStore } from '@/features/auth/auth-ui-store';
 import { useSession } from '@/features/auth/use-session';
 import { ROUTES } from '@/shared/constants/shell-routes';
-import { STITCH_HERO_IMAGE } from '../data/stitch-assets';
-import { AiChatDemo } from './ai-chat-demo';
+import { HOME_HERO_BG } from '../data/home-hero';
+import { FadeUp } from './fade-up';
+import { GridBackground } from './grid-background';
+import { HomeChatDemo } from './home-chat-demo';
+import { HomePrimaryButton } from './home-primary-button';
 
 export function HeroSection() {
   const navigate = useNavigate();
   const openLogin = useAuthUiStore((s) => s.openLogin);
   const { isAuthenticated, isLoading } = useSession();
-  const [prompt, setPrompt] = useState('');
 
   function goPlan() {
     if (isLoading) return;
@@ -22,97 +24,92 @@ export function HeroSection() {
     navigate(ROUTES.ASSISTANT);
   }
 
-  function onSearchKeyDown(e: KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter') goPlan();
-  }
-
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative flex min-h-[min(100dvh,920px)] flex-col justify-center overflow-hidden"
+      className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-neutral-50"
     >
-      <div className="absolute inset-0 z-0">
-        <img
-          src={STITCH_HERO_IMAGE}
-          alt=""
-          className="size-full scale-105 object-cover brightness-[0.42]"
-        />
-        <div className="absolute inset-0 bg-[#111317]/35" />
-        <div className="absolute inset-x-0 bottom-0 h-[55%] bg-[#111317]/80" />
-      </div>
+      <div
+        className="absolute inset-0 z-0 scale-[1.02] bg-cover bg-center"
+        style={{
+          backgroundImage: `linear-gradient(to bottom, rgb(17 19 23 / 0.15) 0%, rgb(17 19 23 / 0.4) 30%, rgb(17 19 23 / 0.85) 60%, rgb(17 19 23) 100%), url('${HOME_HERO_BG}')`,
+        }}
+        aria-hidden
+      />
+      <GridBackground />
 
-      <div className="relative z-10 mx-auto w-full max-w-[1200px] px-4 pb-14 pt-24 sm:px-5 sm:pb-16 sm:pt-28 md:px-10 md:pb-20 md:pt-32">
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-16">
-          <div className="flex-1 text-center lg:text-left">
-            <span className="mb-4 block font-sans text-[10px] font-bold uppercase tracking-[0.35em] text-primary-400">
-              Neural wayfinding engine
-            </span>
+      <div className="relative z-10 mx-auto flex w-full max-w-[1200px] flex-wrap items-center gap-12 px-6 pb-16 pt-28 md:gap-16 md:px-12 md:pt-32 lg:px-20">
+        <div className="min-w-[min(100%,320px)] flex-1">
+          <FadeUp>
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary-400/25 bg-primary-500/10 px-3.5 py-1.5 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-primary-600">
+              <Zap className="size-3" aria-hidden strokeWidth={2.5} />
+              AI-powered trip intelligence
+            </div>
+          </FadeUp>
+
+          <FadeUp delay={80}>
             <h1
               id="hero-heading"
-              className="m-0 mb-5 font-display text-[2rem] font-bold italic leading-[1.08] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[3.25rem]"
+              className="mb-6 font-display text-[clamp(2.2rem,5vw,3.8rem)] font-bold italic leading-[1.06] tracking-tight text-neutral-700"
             >
-              Your journey,{' '}
-              <br className="hidden sm:block" />
-              <span className="font-display not-italic text-primary-300">synthesized by AI.</span>
+              Your trips, planned by{' '}
+              <span className="bg-gradient-to-r from-primary-500 to-auxiliary-400 bg-clip-text font-display font-bold not-italic text-transparent">
+                artificial intelligence
+              </span>{' '}
+              that understands you.
             </h1>
-            <p className="mx-auto mb-8 max-w-[480px] text-[15px] leading-relaxed text-neutral-600 sm:text-base lg:mx-0">
-              Tell Atlas where instinct points you. Solo itineraries that adapt to weather, terrain, and
-              the hidden rhythm of the trail — not another static PDF.
+          </FadeUp>
+
+          <FadeUp delay={160}>
+            <p className="mb-8 max-w-[480px] font-sans text-[clamp(15px,1.5vw,17px)] font-light leading-[1.75] text-neutral-600">
+              Atlas does not generate generic templates. It builds complete, day-by-day itineraries tailored to
+              your pace, budget, and travel personality — powered by deep contextual AI.
             </p>
+          </FadeUp>
 
-            <div className="mx-auto mb-6 max-w-xl lg:mx-0">
-              <div className="glass-panel-home flex items-center gap-1 rounded-full border border-white/10 p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
-                <Sparkles className="size-[22px] shrink-0 text-neutral-500" aria-hidden strokeWidth={1.5} />
-                <label htmlFor="hero-intent" className="sr-only">
-                  Describe your trip
-                </label>
-                <input
-                  id="hero-intent"
-                  type="text"
-                  value={prompt}
-                  onChange={(e) => setPrompt(e.target.value)}
-                  onKeyDown={onSearchKeyDown}
-                  placeholder="Where does your intuition take you?"
-                  className="min-w-0 flex-1 border-none bg-transparent px-2 py-3.5 text-[15px] text-neutral-700 placeholder:text-neutral-500 focus:outline-none focus:ring-0"
-                />
-                <button
-                  type="button"
-                  onClick={goPlan}
-                  className="shrink-0 rounded-full bg-primary-500 px-5 py-3.5 text-[13px] font-bold tracking-wide text-white sm:px-8 sm:text-sm"
-                >
-                  Initialize trip
-                </button>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-center gap-2.5 lg:justify-start">
-              <button
+          <FadeUp delay={240}>
+            <div className="mb-6 flex flex-wrap items-center gap-3">
+              <HomePrimaryButton
                 type="button"
+                className="group px-7 py-3.5"
                 onClick={goPlan}
-                className="inline-flex cursor-pointer items-center gap-2 rounded-full border-none bg-auxiliary-500 px-6 py-3 text-sm font-extrabold whitespace-nowrap text-[#00363d] shadow-[0_4px_28px_rgba(0,227,253,0.25)]"
               >
-                <Plane className="size-4 shrink-0" aria-hidden /> Plan with chat
-              </button>
-              <a
-                href="#how-it-works"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white hover:bg-white/15"
-              >
-                How it works ↓
-              </a>
+                <Sparkles className="size-4" aria-hidden strokeWidth={2} />
+                Start planning free
+                <ArrowRight
+                  className="size-4 transition-transform group-hover:translate-x-1"
+                  aria-hidden
+                  strokeWidth={2}
+                />
+              </HomePrimaryButton>
+              <Button variant="secondary" size="lg" className="rounded-full border border-neutral-200/90 shadow-sm" asChild>
+                <a href="#how-it-works" className="inline-flex items-center gap-2">
+                  <MessageSquare className="size-4" aria-hidden strokeWidth={2} />
+                  How it works
+                </a>
+              </Button>
             </div>
-          </div>
+          </FadeUp>
 
-          <div className="hidden w-full shrink-0 lg:block lg:w-[440px]">
-            <AiChatDemo />
-          </div>
+          <FadeUp delay={320}>
+            <div className="flex flex-wrap items-center gap-6 font-sans text-[11px] text-neutral-500">
+              <span className="flex items-center gap-1.5">
+                <span className="size-1.5 rounded-full bg-emerald-500" /> 1,200+ travelers
+              </span>
+              <span>47 countries</span>
+              <span>Free beta</span>
+            </div>
+          </FadeUp>
         </div>
+
+        <FadeUp delay={300} className="w-full shrink-0 md:w-[clamp(280px,35vw,420px)]">
+          <HomeChatDemo onViewFullItinerary={goPlan} />
+        </FadeUp>
       </div>
 
-      <div className="pointer-events-none absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-1 opacity-50">
-        <span className="font-sans text-[10px] uppercase tracking-widest text-white">Scroll</span>
-        <span className="text-lg text-white motion-safe:animate-bounce" aria-hidden="true">
-          ↓
-        </span>
+      <div className="pointer-events-none absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-1.5 opacity-35">
+        <span className="font-sans text-[9px] uppercase tracking-[0.25em] text-neutral-700">Scroll</span>
+        <ChevronDown className="size-4 text-neutral-700 hp-bob" aria-hidden strokeWidth={2} />
       </div>
 
       <Link to={ROUTES.ASSISTANT} className="sr-only">

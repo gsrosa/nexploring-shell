@@ -1,125 +1,143 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useCallback, useRef, useState, type MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthUiStore } from '@/features/auth/auth-ui-store';
 import { useSession } from '@/features/auth/use-session';
 import { ROUTES } from '@/shared/constants/shell-routes';
-import { HOME_DESTINATIONS } from '../data/destinations';
+import type { HomeCarouselDestination } from '../data/home-destinations-carousel';
+import { HOME_DESTINATIONS_CAROUSEL } from '../data/home-destinations-carousel';
 import { FadeUp } from './fade-up';
+
+function DestinationCard({
+  d,
+  onPlan,
+}: {
+  d: HomeCarouselDestination;
+  onPlan: (destination: string) => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={() => onPlan(d.name)}
+      className="group relative aspect-[3/4] w-[clamp(220px,24vw,276px)] shrink-0 cursor-pointer overflow-hidden rounded-2xl border border-neutral-200/80 text-left transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_70px_rgba(17,19,23,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+    >
+      <div
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.07]"
+        style={{ backgroundImage: `url('${d.img}')` }}
+        aria-hidden
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(to bottom, transparent 22%, rgb(17 19 23 / 0.5) 56%, rgb(17 19 23 / 0.97) 100%)',
+        }}
+        aria-hidden
+      />
+      <div className="absolute bottom-0 left-0 right-0 p-4">
+        <div className="mb-2 flex flex-wrap gap-1.5">
+          {d.tags.map((t) => (
+            <span
+              key={t}
+              className="rounded px-1.5 py-0.5 font-sans text-[9px] font-bold uppercase tracking-wide text-neutral-600 bg-neutral-300/20"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+        <div className="mb-1 font-display text-lg font-bold leading-tight text-neutral-700">{d.name}</div>
+        <div className="mb-2 font-sans text-[10px] uppercase tracking-[0.1em] text-neutral-500">{d.country}</div>
+        <div className="mb-3 font-display text-xs italic leading-relaxed text-neutral-600/90">&ldquo;{d.hook}&rdquo;</div>
+        <div className="translate-y-1 font-sans text-[11px] font-bold tracking-wide text-primary-600 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+          Plan this trip →
+        </div>
+      </div>
+    </button>
+  );
+}
 
 export function DestinationsSection() {
   const navigate = useNavigate();
   const openLogin = useAuthUiStore((s) => s.openLogin);
   const { isAuthenticated, isLoading } = useSession();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStart = useRef({ x: 0, scroll: 0 });
 
-  function goAssistant() {
+  function goAssistant(destination?: string) {
     if (isLoading) return;
     if (!isAuthenticated) {
       openLogin();
       return;
     }
-    navigate(ROUTES.ASSISTANT);
+    const path = destination
+      ? `${ROUTES.ASSISTANT}?destination=${encodeURIComponent(destination)}`
+      : ROUTES.ASSISTANT;
+    navigate(path);
   }
+
+  const onMouseDown = useCallback((e: MouseEvent) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setIsDragging(true);
+    dragStart.current = { x: e.clientX, scroll: el.scrollLeft };
+  }, []);
+
+  const onMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!isDragging || !scrollRef.current) return;
+      scrollRef.current.scrollLeft = dragStart.current.scroll - (e.clientX - dragStart.current.x);
+    },
+    [isDragging],
+  );
+
+  const onMouseUp = useCallback(() => setIsDragging(false), []);
 
   return (
     <section
       aria-labelledby="dest-heading"
-      className="bg-neutral-100 py-16 pl-4 sm:py-20 sm:pl-5 md:py-28 md:pl-10 overflow-x-clip overflow-y-visible"
+      className="overflow-hidden border-y border-neutral-200/80 bg-neutral-100 py-24 md:py-32"
     >
-      <div className="mx-auto mb-10 flex max-w-[1200px] flex-col gap-4 pr-4 sm:pr-5 md:mb-12 md:pr-10 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <span className="mb-2 block text-[10px] font-extrabold uppercase tracking-[0.2em] text-primary-400 sm:text-[11px]">
-            Active syntheses
-          </span>
-          <h2
-            id="dest-heading"
-            className="m-0 font-display text-2xl italic tracking-tight text-neutral-700 sm:text-3xl md:text-4xl"
-          >
-            Where will you go first?
-          </h2>
-          <p className="m-0 mt-2 max-w-lg text-sm leading-relaxed text-neutral-600">
-            Every destination has a starter path you can personalize in one conversation.
-          </p>
+      <FadeUp>
+        <div className="mb-10 px-6 md:px-12 lg:px-20">
+          <div className="mx-auto flex max-w-[1200px] flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="mb-3 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-primary-600">
+                Explore
+              </p>
+              <h2
+                id="dest-heading"
+                className="font-display text-[clamp(1.6rem,3.5vw,2.8rem)] font-bold italic text-neutral-700"
+              >
+                Where travelers go{' '}
+                <span className="bg-gradient-to-r from-primary-500 to-auxiliary-400 bg-clip-text font-display font-bold not-italic text-transparent">
+                  next
+                </span>
+                .
+              </h2>
+            </div>
+            <span className="font-sans text-xs tracking-wide text-neutral-500">Drag to explore →</span>
+          </div>
         </div>
-        <div className="flex shrink-0 gap-2 text-neutral-700" aria-hidden="true">
-          <span className="flex size-11 items-center justify-center rounded-full border border-white/10">
-            <ChevronLeft className="size-5 opacity-60" strokeWidth={2} />
-          </span>
-          <span className="flex size-11 items-center justify-center rounded-full border border-white/10">
-            <ChevronRight className="size-5 opacity-60" strokeWidth={2} />
-          </span>
-        </div>
-      </div>
-
+      </FadeUp>
       <div
+        ref={scrollRef}
         role="list"
-        aria-label="Destination journeys"
-        className="destinations-horizontal-scroll no-scrollbar flex gap-4 overflow-x-auto pb-6 pr-4 snap-x snap-mandatory sm:gap-5 sm:pr-5 md:gap-6 md:pr-10"
-        style={{ WebkitOverflowScrolling: 'touch' }}
+        aria-label="Destination ideas"
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onMouseLeave={onMouseUp}
+        className="no-scrollbar flex select-none gap-3.5 overflow-x-auto px-6 pb-6 md:px-12 lg:px-20"
+        style={{
+          scrollbarWidth: 'none',
+          cursor: isDragging ? 'grabbing' : 'grab',
+          touchAction: 'pan-x pan-y',
+        }}
       >
-        {HOME_DESTINATIONS.map((d, i) => (
-          <FadeUp key={d.name} delay={i * 50} className="snap-start shrink-0">
-            <article
-              role="listitem"
-              className="group relative h-[min(62dvh,440px)] w-[min(88vw,400px)] overflow-hidden rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.35)] sm:h-[min(58dvh,500px)] md:h-[min(56dvh,520px)]"
-            >
-              {d.imageUrl ? (
-                <>
-                  <img
-                    src={d.imageUrl}
-                    alt=""
-                    className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-[#111317]/45" />
-                  <div className="absolute inset-x-0 bottom-0 h-[45%] bg-[#111317]/90" />
-                </>
-              ) : (
-                <>
-                  <div
-                    className="absolute inset-0 flex items-center justify-center text-5xl sm:text-6xl"
-                    style={{ backgroundColor: d.color }}
-                    aria-hidden="true"
-                  >
-                    {d.emoji}
-                  </div>
-                  <div className="absolute inset-0 bg-[#111317]/35" />
-                  <div className="absolute inset-x-0 bottom-0 h-[45%] bg-[#111317]/88" />
-                </>
-              )}
-              <div className="absolute bottom-0 left-0 right-0 z-[1] p-6 sm:p-8 md:p-10">
-                {d.badges && d.badges.length > 0 && (
-                  <div className="mb-3 flex flex-wrap gap-2 sm:mb-4">
-                    {d.badges.map((b) => (
-                      <span
-                        key={b}
-                        className="rounded-full bg-white/15 px-3 py-1 font-sans text-[10px] uppercase tracking-widest text-white backdrop-blur-md"
-                      >
-                        {b}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                {!d.badges && (
-                  <span className="mb-3 inline-block rounded-full bg-white/15 px-3 py-1 font-sans text-[10px] uppercase tracking-widest text-white backdrop-blur-md sm:mb-4">
-                    {d.tag}
-                  </span>
-                )}
-                <h3 className="m-0 mb-2 font-display text-xl italic text-white sm:text-2xl md:text-3xl">
-                  {d.name}
-                </h3>
-                <p className="m-0 mb-1 text-sm font-medium text-white/70">{d.country}</p>
-                <p className="m-0 mb-5 line-clamp-2 text-sm leading-relaxed text-white/80 sm:mb-6">
-                  {d.hook}
-                </p>
-                <button
-                  type="button"
-                  onClick={goAssistant}
-                  className="block w-full cursor-pointer rounded-full border border-primary-400/60 bg-primary-500 py-3.5 text-center text-[11px] font-bold uppercase tracking-widest text-white transition-colors hover:bg-primary-600 hover:text-white"
-                >
-                  Initialize trip
-                </button>
-              </div>
-            </article>
-          </FadeUp>
+        {HOME_DESTINATIONS_CAROUSEL.map((d) => (
+          <div key={d.name} role="listitem" className="shrink-0">
+            <DestinationCard d={d} onPlan={goAssistant} />
+          </div>
         ))}
       </div>
     </section>

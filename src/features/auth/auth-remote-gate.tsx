@@ -10,6 +10,7 @@ import { ROUTES } from '@/shared/constants/shell-routes';
 interface Props {
   remoteLabel: string;
   children: ReactNode;
+  loadingFallback?: ReactNode;
 }
 
 function AuthErrorScreen({
@@ -58,11 +59,11 @@ function AuthErrorScreen({
   );
 }
 
-export function AuthRemoteGate({ remoteLabel, children }: Props) {
+export function AuthRemoteGate({ remoteLabel, children, loadingFallback }: Props) {
   const { isAuthenticated, isLoading, isUnauthorized } = useSession();
 
   if (isLoading) {
-    return (
+    return loadingFallback ?? (
       <div className="flex min-h-[50vh] flex-col items-center justify-center gap-3 px-6 text-sm text-neutral-500">
         <span className="inline-block size-8 animate-spin rounded-full border-2 border-neutral-200 border-t-primary-400" />
         Checking your session…

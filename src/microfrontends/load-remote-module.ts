@@ -8,16 +8,26 @@ const remoteImportMap: Record<string, ModuleImportFn> = {
   'searchApp/SearchWidget': () => import('searchApp/SearchWidget'),
   'aiAssistant/App': () => import('aiAssistant/App'),
   'aiAssistant/ChatWidget': () => import('aiAssistant/ChatWidget'),
+  'aiAssistant/Skeleton': () => import('aiAssistant/Skeleton'),
   'userApp/App': () => import('userApp/App'),
+  'userApp/Skeleton': () => import('userApp/Skeleton'),
 };
+
+// Module-level cache — lazy() must never be called twice for the same key.
+// A second lazy() call creates a NEW exotic component type, causing Suspense
+// to re-fire "Loading remote…" on every navigation.
+const lazyCache = new Map<string, LazyExoticComponent<ComponentType>>();
 
 export function loadRemoteModule(
   remoteName: string,
   exposedModule: string,
 ): LazyExoticComponent<ComponentType> {
   const key = `${remoteName}/${exposedModule}`;
-  const importFn = remoteImportMap[key];
 
+  const cached = lazyCache.get(key);
+  if (cached) return cached;
+
+  const importFn = remoteImportMap[key];
   if (!importFn) {
     throw new Error(
       `[loadRemoteModule] Unknown remote module: "${key}". ` +
@@ -25,5 +35,7 @@ export function loadRemoteModule(
     );
   }
 
-  return lazy(importFn);
+  const component = lazy(importFn);
+  lazyCache.set(key, component);
+  return component;
 }

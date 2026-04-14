@@ -13,6 +13,7 @@ export const ROUTES = {
   SETTINGS: '/settings',
   USER: '/trips',
   USER_SPLAT: '/trips/*',
+  ACCOUNT: '/trips/account',
 } as const;
 
 export type ShellRoutePath = (typeof ROUTES)[keyof typeof ROUTES];

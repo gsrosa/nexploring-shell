@@ -1,67 +1,78 @@
-import { Map, Plane, Sparkles } from 'lucide-react';
-import { HOW_IT_WORKS_STEPS } from '../data/how-it-works-steps';
-import type { HowItWorksIconKey } from '../types';
+import { useEffect, useRef } from 'react';
+import { HOME_HOW_STEPS } from '../data/home-how-steps';
 import { FadeUp } from './fade-up';
 
-const STEP_ICONS: Record<HowItWorksIconKey, typeof Map> = {
-  map: Map,
-  sparkles: Sparkles,
-  plane: Plane,
-};
-
 export function HowItWorksSection() {
+  const lineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = lineRef.current;
+    if (!el) return;
+    const ob = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          el.style.width = '100%';
+          ob.disconnect();
+        }
+      },
+      { threshold: 0.3 },
+    );
+    ob.observe(el);
+    return () => ob.disconnect();
+  }, []);
+
   return (
     <section
       id="how-it-works"
-      aria-labelledby="hiw-heading"
-      className="border-y border-white/[0.04] bg-neutral-100 px-4 py-16 sm:px-5 sm:py-20 md:px-10 md:py-28"
+      aria-labelledby="how-heading"
+      className="border-y border-neutral-200/80 bg-neutral-100 px-6 py-24 md:px-12 md:py-32 lg:px-20"
     >
       <div className="mx-auto max-w-[1200px]">
         <FadeUp>
-          <div className="mb-10 text-center sm:mb-12 md:mb-16">
-            <span className="mb-3 block text-[10px] font-extrabold uppercase tracking-[0.2em] text-primary-400 sm:text-[11px]">
-              How it works
-            </span>
+          <div className="mb-16 text-center md:mb-20">
+            <p className="mb-4 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-primary-600">
+              Getting started
+            </p>
             <h2
-              id="hiw-heading"
-              className="m-0 font-display text-2xl italic leading-[1.15] tracking-tight text-neutral-700 sm:text-3xl md:text-4xl"
+              id="how-heading"
+              className="font-display text-[clamp(1.6rem,3.5vw,2.8rem)] font-bold italic text-neutral-700"
             >
-              From idea to itinerary
-              <br />
-              in one conversation
+              From idea to itinerary in{' '}
+              <span className="bg-gradient-to-r from-primary-500 to-auxiliary-400 bg-clip-text font-display font-bold not-italic text-transparent">
+                seconds
+              </span>
+              .
             </h2>
           </div>
         </FadeUp>
 
-        <div className="relative grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-3 lg:gap-8">
-          <div
-            className="pointer-events-none absolute left-[18%] right-[18%] top-10 z-0 hidden h-px border-t border-dashed border-primary-400/25 lg:block"
-            aria-hidden="true"
-          />
-          {HOW_IT_WORKS_STEPS.map((s, i) => {
-            const Icon = STEP_ICONS[s.iconKey];
-            return (
-              <FadeUp key={s.num} delay={i * 120}>
-                <article className="relative z-[1] h-full rounded-2xl border border-white/[0.06] bg-neutral-200 p-5 sm:p-6 md:p-7">
-                  <div className="mb-4 flex items-center gap-3">
-                    <div
-                      className="flex size-12 shrink-0 items-center justify-center rounded-[14px] border border-primary-400/30 bg-primary-500/15 sm:size-14"
-                      aria-hidden="true"
-                    >
-                      <Icon className="size-6 text-primary-400 sm:size-7" strokeWidth={1.75} />
-                    </div>
-                    <span className="text-[11px] font-extrabold uppercase tracking-[0.12em] text-primary-400">
-                      Step {s.num}
+        <div className="relative">
+          <div className="absolute left-[17%] right-[17%] top-16 hidden h-px bg-neutral-200 md:block">
+            <div
+              ref={lineRef}
+              className="h-full rounded-full bg-gradient-to-r from-primary-500 to-auxiliary-400"
+              style={{ width: 0, transition: 'width 1.2s ease 0.3s' }}
+            />
+          </div>
+
+          <div className="relative z-10 grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
+            {HOME_HOW_STEPS.map((s, i) => (
+              <FadeUp key={s.n} delay={i * 140}>
+                <div className="flex flex-col items-center px-4 text-center">
+                  <div className="relative mb-6">
+                    <span className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none font-display text-7xl font-bold leading-none text-neutral-700/[0.04]">
+                      {s.n}
                     </span>
+                    <div className="relative z-10 flex size-14 items-center justify-center rounded-full border border-neutral-300/60 bg-neutral-200 shadow-sm">
+                      <s.icon className="size-5 text-primary-600" aria-hidden strokeWidth={2} />
+                    </div>
                   </div>
-                  <h3 className="m-0 mb-2 font-display text-lg font-extrabold tracking-tight text-neutral-700 sm:text-xl">
-                    {s.title}
-                  </h3>
-                  <p className="m-0 text-sm leading-relaxed text-neutral-600">{s.body}</p>
-                </article>
+                  <h3 className="mb-3 font-sans text-[15px] font-bold text-neutral-700">{s.title}</h3>
+                  <p className="font-sans text-[13px] font-light leading-[1.7] text-neutral-600">{s.body}</p>
+                </div>
               </FadeUp>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
     </section>

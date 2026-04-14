@@ -8,6 +8,72 @@
 @keyframes hp-bounce  { 0%,80%,100%{ transform:translateY(0) } 40%{ transform:translateY(-6px) } }
 @keyframes hp-fade-up { from{ opacity:0; transform:translateY(12px) } to{ opacity:1; transform:none } }
 
+@keyframes hp-dot-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.hp-thinking-dot {
+  animation: hp-dot-bounce 1s ease-in-out infinite;
+}
+
+@keyframes hp-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+.hp-bob {
+  animation: hp-bob 1.8s ease infinite;
+}
+
+@keyframes hp-pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+.hp-pulse-soft {
+  animation: hp-pulse-soft 2s ease-in-out infinite;
+}
+
+@keyframes hp-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.hp-fade-in {
+  animation: hp-fade-in 0.45s ease forwards;
+}
+
+@keyframes hp-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hp-fade-in-up {
+  animation: hp-fade-in-up 0.4s ease forwards;
+}
+
 /* ─── Scroll-reveal (homepage FadeUp — JS toggles .in-view only here) ─────────── */
 .fade-up         { opacity: 0; transform: translateY(28px); transition: opacity 0.55s ease, transform 0.55s ease; }
 .fade-up.in-view { opacity: 1; transform: none; }

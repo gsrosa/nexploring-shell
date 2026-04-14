@@ -136,7 +136,7 @@ function TopNavActions() {
           <>
             {userApp ? (
               <NavLink
-                to={ROUTES.USER}
+                to={ROUTES.ACCOUNT}
                 aria-label="Open account"
                 className="flex max-w-[min(220px,36vw)] shrink-0 items-center justify-center gap-2 no-underline md:max-w-[min(200px,28vw)] md:rounded-[10px] md:border md:border-neutral-200 md:bg-neutral-50 md:px-2.5 md:py-1.5 md:hover:border-primary-200 md:hover:bg-primary-50/80 [&_svg]:shrink-0"
               >

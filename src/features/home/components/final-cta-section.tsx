@@ -1,17 +1,19 @@
-import { Plane } from 'lucide-react';
+import { Button } from '@gsrosa/atlas-ui';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthUiStore } from '@/features/auth/auth-ui-store';
 import { useSession } from '@/features/auth/use-session';
 import { ROUTES } from '@/shared/constants/shell-routes';
-import { STITCH_CTA_NIGHT } from '../data/stitch-assets';
+import { HOME_FINAL_CTA_BG } from '../data/home-hero';
 import { FadeUp } from './fade-up';
+import { HomePrimaryButton } from './home-primary-button';
 
 export function FinalCtaSection() {
   const navigate = useNavigate();
   const openLogin = useAuthUiStore((s) => s.openLogin);
   const { isAuthenticated, isLoading } = useSession();
 
-  function goAssistant() {
+  function goPlan() {
     if (isLoading) return;
     if (!isAuthenticated) {
       openLogin();
@@ -23,50 +25,63 @@ export function FinalCtaSection() {
   return (
     <section
       aria-labelledby="final-cta-heading"
-      className="relative flex min-h-[380px] flex-col items-center justify-center overflow-hidden px-4 py-20 text-center sm:min-h-[420px] sm:px-5 sm:py-24 md:min-h-[520px] md:px-10 md:py-36"
+      className="relative flex min-h-[80vh] items-center justify-center overflow-hidden px-6 py-24 text-center md:px-12 lg:px-20"
     >
-      <div className="absolute inset-0 z-0">
-        <img
-          src={STITCH_CTA_NIGHT}
-          alt=""
-          className="size-full object-cover brightness-[0.35]"
-        />
-        <div className="absolute inset-0 bg-[#111317]/65" />
-      </div>
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        style={{
+          backgroundImage: `linear-gradient(to bottom, rgb(17 19 23 / 0.45) 0%, rgb(17 19 23 / 0.92) 100%), url('${HOME_FINAL_CTA_BG}')`,
+        }}
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 60% 50% at 50% 30%, rgb(0 227 253 / 0.06), transparent)',
+        }}
+        aria-hidden
+      />
 
-      <div className="relative z-10 mx-auto max-w-3xl">
+      <div className="relative z-10 w-full max-w-[600px]">
         <FadeUp>
-          <div className="mb-4 text-3xl text-primary-400 md:text-5xl" aria-hidden="true">
-            ✦
-          </div>
+          <p className="mb-5 font-sans text-[10px] font-bold uppercase tracking-[0.35em] text-primary-600">
+            Start exploring
+          </p>
           <h2
             id="final-cta-heading"
-            className="m-0 mb-4 font-display text-3xl italic leading-tight tracking-tight text-white md:text-5xl lg:text-6xl"
+            className="mb-5 font-display text-[clamp(2rem,5vw,3.4rem)] font-bold italic leading-[1.08] tracking-tight text-neutral-700"
           >
-            Redefine wandering.
+            Your next trip starts
+            <br />
+            with{' '}
+            <span className="bg-gradient-to-r from-primary-500 to-auxiliary-400 bg-clip-text font-display font-bold not-italic text-transparent">
+              one message
+            </span>
+            .
           </h2>
-          <p className="mx-auto mb-8 mt-0 max-w-xl text-base font-light leading-relaxed text-neutral-600 md:mb-10 md:text-lg">
-            Step into travel planning that respects both the machine and the explorer. One message is enough
-            to start.
+          <p className="mb-10 font-sans text-[clamp(15px,1.6vw,17px)] font-light leading-[1.75] text-neutral-600">
+            Describe where you want to go. Atlas handles the rest.
           </p>
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <button
-              type="button"
-              onClick={goAssistant}
-              className="inline-flex cursor-pointer items-center gap-2.5 rounded-full border-none bg-primary-500 px-10 py-4 text-sm font-extrabold uppercase tracking-[0.12em] text-white md:px-14"
-            >
-              <Plane className="size-4 shrink-0" aria-hidden /> Initialize Atlas
-            </button>
-            <a
-              href="#how-it-works"
-              className="inline-flex items-center justify-center rounded-full border border-white/20 px-10 py-4 text-sm font-bold uppercase tracking-[0.12em] text-white no-underline hover:bg-white/10 md:px-12"
-            >
-              How it works
-            </a>
+
+          <div className="mb-5 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <HomePrimaryButton type="button" className="group px-8 py-4" onClick={goPlan}>
+              <Sparkles className="size-4" aria-hidden strokeWidth={2} />
+              Start planning free
+              <ArrowRight
+                className="size-4 transition-transform group-hover:translate-x-1"
+                aria-hidden
+                strokeWidth={2}
+              />
+            </HomePrimaryButton>
+            <Button variant="secondary" size="lg" className="rounded-full border border-neutral-200/90 shadow-sm" asChild>
+              <a href="#how-it-works">See how it works</a>
+            </Button>
           </div>
-          <span className="mt-6 block text-[11px] text-neutral-500 md:text-xs">
+
+          <p className="font-sans text-xs tracking-wide text-neutral-400">
             Beta access · No credit card · Cancel anytime
-          </span>
+          </p>
         </FadeUp>
       </div>
     </section>

@@ -26,7 +26,7 @@ const ITEMS: BottomNavItem[] = [
     disabled: !userApp,
   },
   {
-    to: ROUTES.USER,
+    to: ROUTES.ACCOUNT,
     label: 'Profile',
     icon: <User className={iconClass} aria-hidden />,
     disabled: !userApp,

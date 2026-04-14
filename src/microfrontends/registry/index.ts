@@ -8,6 +8,7 @@ interface MicrofrontendConfig {
   name: string;
   remoteName: string;
   exposedModule: string;
+  skeletonModule?: string;
   routePath: string;
   navPath: string;
   navigationLabel: string;
@@ -30,6 +31,7 @@ export const microfrontendRegistry: Record<string, MicrofrontendConfig> = {
     name: 'AI Assistant',
     remoteName: 'aiAssistant',
     exposedModule: 'App',
+    skeletonModule: 'Skeleton',
     routePath: ROUTES.ASSISTANT_SPLAT,
     navPath: ROUTES.ASSISTANT,
     navigationLabel: 'AI Assistant',
@@ -40,6 +42,7 @@ export const microfrontendRegistry: Record<string, MicrofrontendConfig> = {
     name: 'User',
     remoteName: 'userApp',
     exposedModule: 'App',
+    skeletonModule: 'Skeleton',
     routePath: ROUTES.USER_SPLAT,
     navPath: ROUTES.USER,
     navigationLabel: 'Account',
@@ -66,6 +69,14 @@ export function getMicrofrontendComponent(
     throw new Error(`[registry] Unknown microfrontend: "${key}"`);
   }
   return loadRemoteModule(config.remoteName, config.exposedModule);
+}
+
+export function getMicrofrontendSkeleton(
+  key: string,
+): LazyExoticComponent<ComponentType> | undefined {
+  const config = microfrontendRegistry[key];
+  if (!config?.skeletonModule) return undefined;
+  return loadRemoteModule(config.remoteName, config.skeletonModule);
 }
 
 export type { MicrofrontendConfig };
