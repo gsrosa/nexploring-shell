@@ -4,6 +4,7 @@ import { TravelerProfileSync } from '@/features/traveler-profile/traveler-profil
 
 import { BottomNav } from './bottom-nav';
 import { Footer } from './footer';
+import { PurchaseModal } from './purchase-modal';
 import { TopNav } from './top-nav';
 
 export const ShellLayout = () => {
@@ -36,6 +37,7 @@ export const ShellLayout = () => {
       </main>
       <Footer />
       <BottomNav />
+      <PurchaseModal />
     </div>
   );
 };

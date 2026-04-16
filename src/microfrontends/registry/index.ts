@@ -61,6 +61,17 @@ export const microfrontendRegistry: Record<string, MicrofrontendConfig> = {
     featureFlag: 'enableUserApp',
     requireAuth: true,
   },
+  paymentApp: {
+    name: 'Billing',
+    remoteName: 'paymentApp',
+    exposedModule: 'App',
+    skeletonModule: 'Skeleton',
+    routePath: ROUTES.PROFILE_BILLING_SPLAT,
+    navPath: ROUTES.PROFILE_BILLING,
+    navigationLabel: 'Billing',
+    featureFlag: 'enablePaymentApp',
+    requireAuth: true,
+  },
 };
 
 export const getEnabledMicrofrontends = (): MicrofrontendConfig[] => {

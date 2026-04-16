@@ -21,11 +21,12 @@
     "@trpc/client": "^11.15.1",
     "@trpc/react-query": "^11.15.1",
     "atlas-bff": "file:../atlas-bff",
-    "superjson": "^2.2.6",
     "lucide-react": "^1.7.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.13.1",
+    "sonner": "^2.0.7",
+    "superjson": "^2.2.6",
     "zustand": "^5.0.11"
   },
   "devDependencies": {

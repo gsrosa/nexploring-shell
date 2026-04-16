@@ -15,6 +15,8 @@ export const ROUTES = {
   PROFILE_SETTINGS: '/profile/settings',
   MY_TRIPS: '/my-trips',
   MY_TRIPS_SPLAT: '/my-trips/*',
+  PROFILE_BILLING: '/profile/billing',
+  PROFILE_BILLING_SPLAT: '/profile/billing/*',
 } as const;
 
 export type ShellRoutePath = (typeof ROUTES)[keyof typeof ROUTES];

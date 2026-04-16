@@ -10,6 +10,8 @@ const remoteImportMap: Record<string, ModuleImportFn> = {
   'aiAssistant/Skeleton': () => import('aiAssistant/Skeleton'),
   'userApp/App': () => import('userApp/App'),
   'userApp/Skeleton': () => import('userApp/Skeleton'),
+  'paymentApp/App': () => import('paymentApp/App'),
+  'paymentApp/Skeleton': () => import('paymentApp/Skeleton'),
 };
 
 // Module-level cache — lazy() must never be called twice for the same key.

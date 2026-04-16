@@ -26,6 +26,7 @@ import { profileDisplayName } from '@/features/auth/profile-display-name';
 import { useSession } from '@/features/auth/use-session';
 import { ROUTES } from '@/shared/constants/shell-routes';
 import { trpc } from '@/lib/trpc';
+import { CreditChip } from './credit-chip';
 
 type NavItem = {
   to: string;
@@ -175,41 +176,44 @@ const TopNavAuth = () => {
   if (isAuthenticated) {
     const initial = profileDisplayName(profile).slice(0, 1).toUpperCase();
     return (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <button
-            type="button"
-            aria-label="Open account menu"
-            className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full border border-primary-500/40 bg-primary-500/15 text-[12px] font-bold text-primary-400 transition-colors hover:border-primary-500/60 hover:bg-primary-500/25"
-          >
-            {initial}
-          </button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-48">
-          {userApp && (
-            <DropdownMenuItem onClick={() => navigate(ROUTES.PROFILE)}>
-              <UserIcon strokeWidth={2} />
-              Profile
+      <div className="flex shrink-0 items-center gap-2">
+        <CreditChip />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              type="button"
+              aria-label="Open account menu"
+              className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full border border-primary-500/40 bg-primary-500/15 text-[12px] font-bold text-primary-400 transition-colors hover:border-primary-500/60 hover:bg-primary-500/25"
+            >
+              {initial}
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-48">
+            {userApp && (
+              <DropdownMenuItem onClick={() => navigate(ROUTES.PROFILE)}>
+                <UserIcon strokeWidth={2} />
+                Profile
+              </DropdownMenuItem>
+            )}
+            <DropdownMenuItem onClick={() => navigate(ROUTES.PROFILE_BILLING)}>
+              <CreditCardIcon strokeWidth={2} />
+              Billing
             </DropdownMenuItem>
-          )}
-          <DropdownMenuItem onClick={() => navigate(ROUTES.PROFILE_SETTINGS)}>
-            <CreditCardIcon strokeWidth={2} />
-            Payments
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => navigate(ROUTES.PROFILE_SETTINGS)}>
-            <SlidersIcon strokeWidth={2} />
-            Preferences
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            disabled={signOut.isPending}
-            onClick={() => signOut.mutate()}
-          >
-            <LogOutIcon strokeWidth={2} />
-            Sign out
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+            <DropdownMenuItem onClick={() => navigate(ROUTES.PROFILE_SETTINGS)}>
+              <SlidersIcon strokeWidth={2} />
+              Preferences
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              disabled={signOut.isPending}
+              onClick={() => signOut.mutate()}
+            >
+              <LogOutIcon strokeWidth={2} />
+              Sign out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     );
   }
 
