@@ -38,7 +38,7 @@ type NavItem = {
 };
 
 const buildNavItems = (): NavItem[] => {
-  const userApp = isFeatureEnabled('enableUserApp');
+  const aiAssistant = isFeatureEnabled('enableAIAssistant');
   return [
     { to: ROUTES.HOME, label: 'Explore', icon: CompassIcon, end: true },
     {
@@ -52,7 +52,7 @@ const buildNavItems = (): NavItem[] => {
       label: 'My Trips',
       icon: MapIcon,
       requiresAuth: true,
-      disabled: !userApp,
+      disabled: !aiAssistant,
     },
   ];
 };

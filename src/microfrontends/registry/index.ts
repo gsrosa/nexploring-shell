@@ -39,15 +39,16 @@ export const microfrontendRegistry: Record<string, MicrofrontendConfig> = {
     featureFlag: 'enableAIAssistant',
     requireAuth: true,
   },
+  /** My Trips is served from the assistant remote; profile/account routes still use `enableUserApp`. */
   userTrips: {
     name: 'My Trips',
-    remoteName: 'userApp',
-    exposedModule: 'App',
-    skeletonModule: 'Skeleton',
+    remoteName: 'aiAssistant',
+    exposedModule: 'MyTripsApp',
+    skeletonModule: 'MyTripsSkeleton',
     routePath: ROUTES.MY_TRIPS_SPLAT,
     navPath: ROUTES.MY_TRIPS,
     navigationLabel: 'My Trips',
-    featureFlag: 'enableUserApp',
+    featureFlag: 'enableAIAssistant',
     requireAuth: true,
   },
 };

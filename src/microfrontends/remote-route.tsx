@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useLocation } from 'react-router-dom';
+
 import { AuthRemoteGate } from '@/features/auth/auth-remote-gate';
 
 import { RemoteErrorBoundary } from './remote-error-boundary';
@@ -50,6 +52,18 @@ class SkeletonErrorBoundary extends React.Component<
   }
 }
 
+type RemoteRouteSkeletonChunkFallbackProps = { remoteName: string };
+
+const RemoteRouteSkeletonChunkFallback = ({
+  remoteName,
+}: RemoteRouteSkeletonChunkFallbackProps) => {
+  const { pathname } = useLocation();
+  if (remoteName === 'userApp' || pathname.startsWith('/my-trips')) {
+    return <UserAppRemoteSuspenseFallback />;
+  }
+  return <PageShimmer />;
+};
+
 const buildFallback = (
   Skeleton: React.LazyExoticComponent<React.ComponentType> | undefined,
   skeletonChunkFallback: React.ReactNode,
@@ -71,8 +85,9 @@ export const RemoteRoute = ({
   skeleton,
   requireAuth,
 }: RemoteRouteProps) => {
-  const skeletonChunkFallback =
-    remoteName === 'userApp' ? <UserAppRemoteSuspenseFallback /> : <PageShimmer />;
+  const skeletonChunkFallback = (
+    <RemoteRouteSkeletonChunkFallback remoteName={remoteName} />
+  );
   const fallback = buildFallback(skeleton, skeletonChunkFallback);
 
   const remote = (

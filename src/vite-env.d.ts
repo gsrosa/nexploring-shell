@@ -52,6 +52,18 @@ declare module 'aiAssistant/Skeleton' {
   export default Component;
 }
 
+declare module 'aiAssistant/MyTripsApp' {
+  import type { ComponentType } from 'react';
+  const Component: ComponentType;
+  export default Component;
+}
+
+declare module 'aiAssistant/MyTripsSkeleton' {
+  import type { ComponentType } from 'react';
+  const Component: ComponentType;
+  export default Component;
+}
+
 declare module 'userApp/Skeleton' {
   import type { ComponentType } from 'react';
   const Component: ComponentType;

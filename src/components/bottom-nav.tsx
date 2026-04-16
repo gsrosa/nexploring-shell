@@ -16,6 +16,7 @@ type BottomNavItem = {
 };
 
 const userApp = isFeatureEnabled('enableUserApp');
+const aiAssistant = isFeatureEnabled('enableAIAssistant');
 
 const iconClass = 'size-5';
 
@@ -35,7 +36,7 @@ const ITEMS: BottomNavItem[] = [
     to: ROUTES.MY_TRIPS,
     label: 'My Trips',
     icon: <BookmarkIcon className={iconClass} aria-hidden />,
-    disabled: !userApp,
+    disabled: !aiAssistant,
   },
   {
     to: ROUTES.PROFILE,
