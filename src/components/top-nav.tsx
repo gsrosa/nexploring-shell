@@ -5,7 +5,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   cn,
@@ -26,7 +25,7 @@ import { useAuthUiStore } from '@/features/auth/auth-ui-store';
 import { profileDisplayName } from '@/features/auth/profile-display-name';
 import { useSession } from '@/features/auth/use-session';
 import { ROUTES } from '@/shared/constants/shell-routes';
-import { trpc } from '@/shared/providers/query-provider';
+import { trpc } from '@/lib/trpc';
 
 type NavItem = {
   to: string;
@@ -160,12 +159,17 @@ const TopNavAuth = () => {
 
   const signOut = trpc.auth.signOut.useMutation({
     onSuccess: async () => {
-      await Promise.all([utils.users.me.invalidate(), utils.travelerProfile.get.invalidate()]);
+      await Promise.all([
+        utils.users.me.invalidate(),
+        utils.travelerProfile.get.invalidate(),
+      ]);
     },
   });
 
   if (isLoading) {
-    return <span className="size-8 shrink-0 animate-pulse rounded-full bg-white/10" />;
+    return (
+      <span className="size-8 shrink-0 animate-pulse rounded-full bg-white/10" />
+    );
   }
 
   if (isAuthenticated) {
@@ -182,10 +186,6 @@ const TopNavAuth = () => {
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-48">
-          <DropdownMenuLabel className="text-xs font-semibold text-neutral-500">
-            {profileDisplayName(profile)}
-          </DropdownMenuLabel>
-          <DropdownMenuSeparator />
           {userApp && (
             <DropdownMenuItem onClick={() => navigate(ROUTES.PROFILE)}>
               <UserIcon strokeWidth={2} />
@@ -202,7 +202,6 @@ const TopNavAuth = () => {
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
-            className="text-danger-500 focus:text-danger-500"
             disabled={signOut.isPending}
             onClick={() => signOut.mutate()}
           >
@@ -216,10 +215,22 @@ const TopNavAuth = () => {
 
   return (
     <div className="flex shrink-0 items-center gap-1.5">
-      <Button type="button" variant="ghost" size="sm" onClick={openLogin} className="shrink-0">
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
+        onClick={openLogin}
+        className="shrink-0"
+      >
         Sign in
       </Button>
-      <Button type="button" variant="primary" size="sm" onClick={openLogin} className="shrink-0">
+      <Button
+        type="button"
+        variant="primary"
+        size="sm"
+        onClick={openLogin}
+        className="shrink-0"
+      >
         Sign up
       </Button>
     </div>

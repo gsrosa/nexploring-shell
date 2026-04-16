@@ -11,7 +11,7 @@ import {
 import { isTRPCClientError } from '@trpc/client';
 
 import { useAuthUiStore } from '@/features/auth/auth-ui-store';
-import { trpc } from '@/shared/providers/query-provider';
+import { trpc } from '@/lib/trpc';
 
 export const LoginForm = () => {
   const closeLogin = useAuthUiStore((s) => s.closeLogin);
@@ -76,7 +76,12 @@ export const LoginForm = () => {
         />
       </div>
 
-      <Button type="submit" variant="primary" className="w-full" disabled={signIn.isPending}>
+      <Button
+        type="submit"
+        variant="primary"
+        className="w-full"
+        disabled={signIn.isPending}
+      >
         {signIn.isPending ? 'Signing in…' : 'Sign in'}
       </Button>
     </form>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type MouseEvent } from 'react';
 
 import { cn } from '@gsrosa/atlas-ui';
 import { useNavigate } from 'react-router-dom';
@@ -11,18 +11,17 @@ import type { HomeCarouselDestination } from '../data/home-destinations-carousel
 import { HOME_DESTINATIONS_CAROUSEL } from '../data/home-destinations-carousel';
 import { FadeUp } from './fade-up';
 
-const DestinationCard = ({
-  d,
-  onPlan,
-}: {
+type DestinationCardProps = {
   d: HomeCarouselDestination;
   onPlan: (destination: string) => void;
-}) => {
+};
+
+const DestinationCard = ({ d, onPlan }: DestinationCardProps) => {
   return (
     <button
       type="button"
       onClick={() => onPlan(d.name)}
-      className="group relative aspect-[3/4] w-[clamp(220px,24vw,276px)] shrink-0 cursor-pointer overflow-hidden rounded-2xl border border-neutral-700/80 text-left transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_70px_rgba(17,19,23,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+      className="group relative aspect-[3/4] w-[clamp(220px,24vw,276px)] shrink-0 cursor-pointer overflow-hidden rounded-2xl border border-neutral-700/80 text-left transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_70px_rgba(17,19,23,0.18)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-500 focus-visible:ring-offset-0"
     >
       <div
         className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.07]"
@@ -79,7 +78,7 @@ export const DestinationsSection = () => {
     navigate(path);
   };
 
-  const handleMouseDown = React.useCallback((e: React.MouseEvent) => {
+  const handleMouseDown = React.useCallback((e: MouseEvent) => {
     const el = scrollRef.current;
     if (!el) return;
     setIsDragging(true);
@@ -87,7 +86,7 @@ export const DestinationsSection = () => {
   }, []);
 
   const handleMouseMove = React.useCallback(
-    (e: React.MouseEvent) => {
+    (e: MouseEvent) => {
       if (!isDragging || !scrollRef.current) return;
       scrollRef.current.scrollLeft = dragStart.current.scroll - (e.clientX - dragStart.current.x);
     },

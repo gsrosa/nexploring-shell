@@ -1,13 +1,11 @@
 import React from 'react';
+import type { ReactNode } from 'react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
-import { createTRPCReact } from '@trpc/react-query';
 import superjson from 'superjson';
 
-import type { AppRouter } from 'atlas-bff/trpc';
-
-export const trpc = createTRPCReact<AppRouter>();
+import { trpc } from '@/lib/trpc';
 
 const defaultApi = 'http://127.0.0.1:4000';
 
@@ -22,7 +20,7 @@ const trpcUrl = (): string => {
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 60 * 1000,   // 1 min — skip refetch on quick re-navigations
+      staleTime: 60 * 1000, // 1 min — skip refetch on quick re-navigations
       gcTime: 10 * 60 * 1000, // 10 min — keep unused entries alive
       retry: 1,
       refetchOnWindowFocus: false,
@@ -31,7 +29,7 @@ const queryClient = new QueryClient({
 });
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 export const QueryProvider = ({ children }: Props) => {

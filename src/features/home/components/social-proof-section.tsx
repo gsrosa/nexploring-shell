@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { HOME_TESTIMONIALS_MARKETING } from '../data/home-testimonials-marketing';
 import { FadeUp } from './fade-up';
 

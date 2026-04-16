@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Button } from '@gsrosa/atlas-ui';
 import { MapPinOffIcon } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
@@ -22,8 +20,10 @@ export const NotFoundPage = () => {
             This page doesn't exist
           </h1>
           <p className="text-sm text-neutral-300">
-            <span className="font-mono text-xs text-neutral-400">{pathname}</span>
-            {' '}couldn't be found. It may have moved or the link might be broken.
+            <span className="font-mono text-xs text-neutral-400">
+              {pathname}
+            </span>{' '}
+            couldn't be found. It may have moved or the link might be broken.
           </p>
         </div>
 

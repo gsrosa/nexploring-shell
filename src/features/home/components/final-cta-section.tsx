@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Button } from '@gsrosa/atlas-ui';
 import { ArrowRightIcon, SparklesIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';

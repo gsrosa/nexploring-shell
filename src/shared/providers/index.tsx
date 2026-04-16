@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { AtlasProvider } from '@gsrosa/atlas-ui';
 import { RouterProvider } from 'react-router-dom';
 

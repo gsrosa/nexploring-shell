@@ -4,21 +4,16 @@ import { HOME_METRICS } from '../data/home-metrics';
 import { useAnimatedMetric } from '../hooks/use-animated-metric';
 import { FadeUp } from './fade-up';
 
-const MetricCell = ({
-  to,
-  suffix,
-  label,
-  decimals,
-  active,
-  delay,
-}: {
+type MetricCellProps = {
   to: number;
   suffix: string;
   label: string;
   decimals: number;
   active: boolean;
   delay: number;
-}) => {
+};
+
+const MetricCell = ({ to, suffix, label, decimals, active, delay }: MetricCellProps) => {
   const v = useAnimatedMetric(to, active, decimals);
   return (
     <FadeUp delay={delay}>

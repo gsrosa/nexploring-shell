@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useSession } from '@/features/auth/use-session';
-import { trpc } from '@/shared/providers/query-provider';
+import { trpc } from '@/lib/trpc';
 
 import { useTravelerProfileUiStore } from './traveler-profile-store';
 

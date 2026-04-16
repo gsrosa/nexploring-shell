@@ -1,11 +1,11 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 
 import { cn } from '@gsrosa/atlas-ui';
 
 import { useInView } from '../hooks/use-in-view';
 
 type FadeUpProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   delay?: number;
   className?: string;
   role?: string;

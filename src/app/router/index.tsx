@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { createBrowserRouter } from 'react-router-dom';
 
 import { ShellLayout } from '@/components/shell-layout';
@@ -20,7 +18,9 @@ const shellChildren = [
     path: toRelativeSplat(mfe.routePath),
     element: (
       <RemoteRoute
+        key={mfe.routePath}
         name={mfe.name}
+        remoteName={mfe.remoteName}
         module={loadRemoteModule(mfe.remoteName, mfe.exposedModule)}
         skeleton={mfe.skeletonModule ? loadRemoteModule(mfe.remoteName, mfe.skeletonModule) : undefined}
         requireAuth={mfe.requireAuth}

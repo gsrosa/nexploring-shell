@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Button } from '@gsrosa/atlas-ui';
 import {
   ArrowRightIcon,
@@ -83,7 +81,7 @@ export const HeroSection = () => {
                 type="button"
                 variant="primary"
                 size="lg"
-                className="group px-6 py-3"
+                className="group"
                 onClick={handleGoPlan}
               >
                 <SparklesIcon className="size-4" aria-hidden strokeWidth={2} />

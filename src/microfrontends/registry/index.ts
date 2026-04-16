@@ -1,4 +1,4 @@
-import React from 'react';
+import type { ComponentType, LazyExoticComponent } from 'react';
 
 import type { FeatureFlagKey } from '@/config/feature-flags';
 import { isFeatureEnabled } from '@/config/feature-flags';
@@ -75,7 +75,7 @@ export const getAllMicrofrontends = (): MicrofrontendConfig[] => {
 
 export const getMicrofrontendComponent = (
   key: string,
-): React.LazyExoticComponent<React.ComponentType> => {
+): LazyExoticComponent<ComponentType> => {
   const config = microfrontendRegistry[key];
   if (!config) {
     throw new Error(`[registry] Unknown microfrontend: "${key}"`);
@@ -85,7 +85,7 @@ export const getMicrofrontendComponent = (
 
 export const getMicrofrontendSkeleton = (
   key: string,
-): React.LazyExoticComponent<React.ComponentType> | undefined => {
+): LazyExoticComponent<ComponentType> | undefined => {
   const config = microfrontendRegistry[key];
   if (!config?.skeletonModule) return undefined;
   return loadRemoteModule(config.remoteName, config.skeletonModule);

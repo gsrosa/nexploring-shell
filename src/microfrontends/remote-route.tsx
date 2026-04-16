@@ -3,9 +3,12 @@ import React from 'react';
 import { AuthRemoteGate } from '@/features/auth/auth-remote-gate';
 
 import { RemoteErrorBoundary } from './remote-error-boundary';
+import { UserAppRemoteSuspenseFallback } from './user-app-remote-suspense-fallback';
 
 type RemoteRouteProps = {
   name: string;
+  /** Federation remote name (e.g. `userApp`) — used for route-aware loading UI. */
+  remoteName: string;
   module: React.LazyExoticComponent<React.ComponentType>;
   skeleton?: React.LazyExoticComponent<React.ComponentType>;
   requireAuth?: boolean;
@@ -47,19 +50,30 @@ class SkeletonErrorBoundary extends React.Component<
   }
 }
 
-const buildFallback = (Skeleton?: React.LazyExoticComponent<React.ComponentType>): React.ReactNode => {
+const buildFallback = (
+  Skeleton: React.LazyExoticComponent<React.ComponentType> | undefined,
+  skeletonChunkFallback: React.ReactNode,
+): React.ReactNode => {
   if (!Skeleton) return <DefaultSpinner />;
   return (
     <SkeletonErrorBoundary>
-      <React.Suspense fallback={<PageShimmer />}>
+      <React.Suspense fallback={skeletonChunkFallback}>
         <Skeleton />
       </React.Suspense>
     </SkeletonErrorBoundary>
   );
 };
 
-export const RemoteRoute = ({ name, module: Module, skeleton, requireAuth }: RemoteRouteProps) => {
-  const fallback = buildFallback(skeleton);
+export const RemoteRoute = ({
+  name,
+  remoteName,
+  module: Module,
+  skeleton,
+  requireAuth,
+}: RemoteRouteProps) => {
+  const skeletonChunkFallback =
+    remoteName === 'userApp' ? <UserAppRemoteSuspenseFallback /> : <PageShimmer />;
+  const fallback = buildFallback(skeleton, skeletonChunkFallback);
 
   const remote = (
     <React.Suspense fallback={fallback}>

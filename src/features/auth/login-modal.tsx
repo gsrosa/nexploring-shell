@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
   Dialog,
   DialogContent,
@@ -24,10 +22,12 @@ export const LoginModal = () => {
     >
       <DialogContent className="max-w-[420px] border-neutral-200 bg-neutral-50 text-neutral-700">
         <DialogHeader>
-          <DialogTitle className="text-neutral-800">Sign in to Atlas</DialogTitle>
+          <DialogTitle className="text-neutral-800">
+            Sign in to Atlas
+          </DialogTitle>
           <DialogDescription className="text-neutral-500">
-            Use the email and password for your Atlas account. Your session is stored securely in the
-            browser.
+            Use the email and password for your Atlas account. Your session is
+            stored securely in the browser.
           </DialogDescription>
         </DialogHeader>
         <LoginForm />

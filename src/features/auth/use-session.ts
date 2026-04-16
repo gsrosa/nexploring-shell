@@ -1,6 +1,6 @@
 import { isTRPCClientError } from '@trpc/client';
 
-import { trpc } from '@/shared/providers/query-provider';
+import { trpc } from '@/lib/trpc';
 
 export const useSession = () => {
   const me = trpc.users.me.useQuery(undefined, {

@@ -20,8 +20,17 @@ const userApp = isFeatureEnabled('enableUserApp');
 const iconClass = 'size-5';
 
 const ITEMS: BottomNavItem[] = [
-  { to: ROUTES.HOME, label: 'Home', icon: <HomeIcon className={iconClass} aria-hidden />, end: true },
-  { to: ROUTES.ASSISTANT, label: 'Plan Trip', icon: <MapIcon className={iconClass} aria-hidden /> },
+  {
+    to: ROUTES.HOME,
+    label: 'Home',
+    icon: <HomeIcon className={iconClass} aria-hidden />,
+    end: true,
+  },
+  {
+    to: ROUTES.ASSISTANT,
+    label: 'Plan Trip',
+    icon: <MapIcon className={iconClass} aria-hidden />,
+  },
   {
     to: ROUTES.MY_TRIPS,
     label: 'My Trips',

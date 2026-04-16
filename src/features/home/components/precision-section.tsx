@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { cn } from '@gsrosa/atlas-ui';
 import { HeartIcon, UserIcon, UsersIcon } from 'lucide-react';
 

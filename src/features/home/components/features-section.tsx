@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { cn } from '@gsrosa/atlas-ui';
 
 import { HOME_FEATURE_BLOCKS } from '../data/home-features';

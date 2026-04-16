@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom';
 
 import { TravelerProfileSync } from '@/features/traveler-profile/traveler-profile-sync';
@@ -10,7 +8,9 @@ import { TopNav } from './top-nav';
 
 export const ShellLayout = () => {
   const { pathname } = useLocation();
-  const profileOnboardingChromeless = pathname === '/profile/onboarding' || pathname.startsWith('/profile/onboarding/');
+  const profileOnboardingChromeless =
+    pathname === '/profile/onboarding' ||
+    pathname.startsWith('/profile/onboarding/');
 
   if (profileOnboardingChromeless) {
     return (

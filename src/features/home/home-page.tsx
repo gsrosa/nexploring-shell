@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { DestinationsSection } from './components/destinations-section';
 import { FeaturesSection } from './components/features-section';
 import { FinalCtaSection } from './components/final-cta-section';
