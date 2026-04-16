@@ -12,6 +12,11 @@ const remoteImportMap: Record<string, ModuleImportFn> = {
   'userApp/Skeleton': () => import('userApp/Skeleton'),
   'paymentApp/App': () => import('paymentApp/App'),
   'paymentApp/Skeleton': () => import('paymentApp/Skeleton'),
+  'paymentApp/BillingPage': () => import('paymentApp/BillingPage'),
+  'userApp/ProfileLayout': () => import('userApp/ProfileLayout'),
+  'userApp/ProfileAboutPage': () => import('userApp/ProfileAboutPage'),
+  'userApp/ProfilePasswordPage': () => import('userApp/ProfilePasswordPage'),
+  'userApp/ProfilePreferencesPage': () => import('userApp/ProfilePreferencesPage'),
 };
 
 // Module-level cache — lazy() must never be called twice for the same key.

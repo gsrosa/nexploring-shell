@@ -190,7 +190,7 @@ const TopNavAuth = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-48">
             {userApp && (
-              <DropdownMenuItem onClick={() => navigate(ROUTES.PROFILE)}>
+              <DropdownMenuItem onClick={() => navigate(ROUTES.PROFILE_ABOUT)}>
                 <UserIcon strokeWidth={2} />
                 Profile
               </DropdownMenuItem>
@@ -199,7 +199,7 @@ const TopNavAuth = () => {
               <CreditCardIcon strokeWidth={2} />
               Billing
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => navigate(ROUTES.PROFILE_SETTINGS)}>
+            <DropdownMenuItem onClick={() => navigate(ROUTES.PROFILE_PREFERENCES)}>
               <SlidersIcon strokeWidth={2} />
               Preferences
             </DropdownMenuItem>

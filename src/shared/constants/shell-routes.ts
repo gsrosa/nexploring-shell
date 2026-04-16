@@ -15,6 +15,9 @@ export const ROUTES = {
   PROFILE_SETTINGS: '/profile/settings',
   MY_TRIPS: '/my-trips',
   MY_TRIPS_SPLAT: '/my-trips/*',
+  PROFILE_ABOUT: '/profile/about',
+  PROFILE_PASSWORD: '/profile/password',
+  PROFILE_PREFERENCES: '/profile/preferences',
   PROFILE_BILLING: '/profile/billing',
   PROFILE_BILLING_SPLAT: '/profile/billing/*',
 } as const;

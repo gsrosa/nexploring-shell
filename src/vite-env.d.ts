@@ -69,3 +69,33 @@ declare module 'paymentApp/Skeleton' {
   const Component: ComponentType;
   export default Component;
 }
+
+declare module 'paymentApp/BillingPage' {
+  import type { ComponentType } from 'react';
+  const Component: ComponentType;
+  export default Component;
+}
+
+declare module 'userApp/ProfileLayout' {
+  import type { ComponentType } from 'react';
+  const Component: ComponentType;
+  export default Component;
+}
+
+declare module 'userApp/ProfileAboutPage' {
+  import type { ComponentType } from 'react';
+  const Component: ComponentType;
+  export default Component;
+}
+
+declare module 'userApp/ProfilePasswordPage' {
+  import type { ComponentType } from 'react';
+  const Component: ComponentType;
+  export default Component;
+}
+
+declare module 'userApp/ProfilePreferencesPage' {
+  import type { ComponentType } from 'react';
+  const Component: ComponentType;
+  export default Component;
+}

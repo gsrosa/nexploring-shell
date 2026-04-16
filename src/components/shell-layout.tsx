@@ -1,4 +1,4 @@
-import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
 
 import { TravelerProfileSync } from '@/features/traveler-profile/traveler-profile-sync';
 
@@ -8,23 +8,6 @@ import { PurchaseModal } from './purchase-modal';
 import { TopNav } from './top-nav';
 
 export const ShellLayout = () => {
-  const { pathname } = useLocation();
-  const profileOnboardingChromeless =
-    pathname === '/profile/onboarding' ||
-    pathname.startsWith('/profile/onboarding/');
-
-  if (profileOnboardingChromeless) {
-    return (
-      <div className="flex min-h-dvh flex-col bg-neutral-900 text-neutral-100">
-        <TravelerProfileSync />
-        <ScrollRestoration />
-        <div className="flex min-h-0 flex-1 flex-col">
-          <Outlet />
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="flex min-h-dvh flex-col bg-neutral-900 text-neutral-100">
       <TravelerProfileSync />
