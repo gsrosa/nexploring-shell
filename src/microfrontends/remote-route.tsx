@@ -52,13 +52,9 @@ class SkeletonErrorBoundary extends React.Component<
   }
 }
 
-type RemoteRouteSkeletonChunkFallbackProps = { remoteName: string };
-
-const RemoteRouteSkeletonChunkFallback = ({
-  remoteName,
-}: RemoteRouteSkeletonChunkFallbackProps) => {
+const RemoteRouteSkeletonChunkFallback = () => {
   const { pathname } = useLocation();
-  if (remoteName === 'userApp' || pathname.startsWith('/my-trips')) {
+  if (pathname.startsWith('/my-trips')) {
     return <UserAppRemoteSuspenseFallback />;
   }
   return <PageShimmer />;
@@ -85,9 +81,7 @@ export const RemoteRoute = ({
   skeleton,
   requireAuth,
 }: RemoteRouteProps) => {
-  const skeletonChunkFallback = (
-    <RemoteRouteSkeletonChunkFallback remoteName={remoteName} />
-  );
+  const skeletonChunkFallback = <RemoteRouteSkeletonChunkFallback />;
   const fallback = buildFallback(skeleton, skeletonChunkFallback);
 
   const remote = (

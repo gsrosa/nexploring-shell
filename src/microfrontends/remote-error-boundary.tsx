@@ -1,3 +1,4 @@
+import { TriangleAlert } from 'lucide-react';
 import React from 'react';
 
 import { monitoring } from '@/shared/services/monitoring';
@@ -39,22 +40,24 @@ export class RemoteErrorBoundary extends React.Component<Props, State> {
     if (this.state.hasError) {
       return (
         <div
-          className="min-h-[calc(100vh-50px)] flex flex-col items-center justify-center gap-4 px-6 py-12 text-center bg-neutral-50 text-neutral-700"
+          className="min-h-[calc(100vh-50px)] flex flex-col items-center justify-center gap-5 px-6 py-12 text-center bg-neutral-900 text-neutral-100"
           role="alert"
         >
-          <h2 className="text-lg font-bold m-0">
-            Failed to load {this.props.remoteName}
-          </h2>
-          <p className="text-sm text-neutral-500 max-w-md m-0">
-            {this.state.error?.message ??
-              'The application could not be loaded. It may be temporarily unavailable.'}
-          </p>
+          <div className="flex items-center justify-center w-14 h-14 rounded-full bg-neutral-800 text-primary-400">
+            <TriangleAlert size={28} strokeWidth={1.5} />
+          </div>
+          <div className="flex flex-col gap-2">
+            <h2 className="text-base font-semibold m-0">Something went wrong</h2>
+            <p className="text-sm text-neutral-400 max-w-xs m-0">
+              This section is temporarily unavailable. Please try again later.
+            </p>
+          </div>
           <button
             type="button"
             onClick={this.handleRetry}
             className="rounded-xl bg-primary-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-primary-600 cursor-pointer border-none"
           >
-            Retry
+            Try again
           </button>
         </div>
       );

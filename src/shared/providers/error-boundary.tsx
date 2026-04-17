@@ -1,3 +1,4 @@
+import { TriangleAlert } from 'lucide-react';
 import React from 'react';
 
 import { monitoring } from '@/shared/services/monitoring';
@@ -30,8 +31,8 @@ export class ErrorBoundary extends React.Component<Props, State> {
     });
   }
 
-  private handleReset = () => {
-    this.setState({ hasError: false, error: null });
+  private handleGoHome = () => {
+    window.location.assign('/');
   };
 
   render() {
@@ -42,20 +43,24 @@ export class ErrorBoundary extends React.Component<Props, State> {
 
       return (
         <div
-          className="min-h-[50vh] flex flex-col items-center justify-center gap-4 px-6 py-12 text-center bg-neutral-50 text-neutral-700"
+          className="min-h-screen flex flex-col items-center justify-center gap-6 px-6 py-12 text-center bg-neutral-900 text-neutral-100"
           role="alert"
         >
-          <h2 className="text-lg font-bold m-0">Something went wrong</h2>
-          <p className="text-sm text-neutral-500 max-w-md m-0">
-            {this.state.error?.message ??
-              'An unexpected error occurred. Please try again.'}
-          </p>
+          <div className="flex items-center justify-center w-16 h-16 rounded-full bg-neutral-800 text-primary-400">
+            <TriangleAlert size={32} strokeWidth={1.5} />
+          </div>
+          <div className="flex flex-col gap-2">
+            <h1 className="text-xl font-semibold m-0">Something went wrong</h1>
+            <p className="text-sm text-neutral-400 max-w-sm m-0">
+              An unexpected error occurred. Return to the home page to continue.
+            </p>
+          </div>
           <button
             type="button"
-            onClick={this.handleReset}
-            className="rounded-xl bg-primary-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-primary-600 cursor-pointer border-none"
+            onClick={this.handleGoHome}
+            className="rounded-xl bg-primary-500 px-6 py-2.5 text-sm font-semibold text-white hover:bg-primary-600 cursor-pointer border-none"
           >
-            Try again
+            Go to home
           </button>
         </div>
       );
