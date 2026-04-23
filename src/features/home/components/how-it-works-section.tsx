@@ -36,7 +36,7 @@ export const HowItWorksSection = () => {
       <div className="mx-auto max-w-[1200px]">
         <FadeUp>
           <div className="mb-16 text-center md:mb-20">
-            <p className="mb-4 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-primary-600">
+            <p className="mb-4 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-auxiliary-300">
               {t('howItWorks.label')}
             </p>
             <h2
@@ -44,7 +44,7 @@ export const HowItWorksSection = () => {
               className="font-display text-[clamp(1.6rem,3.5vw,2.8rem)] font-bold italic text-neutral-100"
             >
               {t('howItWorks.heading1')}{' '}
-              <span className="bg-gradient-to-r from-primary-600 to-primary-300 bg-clip-text font-display font-bold not-italic text-transparent">
+              <span className="bg-linear-to-r from-primary-300 to-primary-500 bg-clip-text font-display font-bold not-italic text-transparent">
                 {t('howItWorks.heading2')}
               </span>
               .
@@ -70,11 +70,19 @@ export const HowItWorksSection = () => {
                       {s.n}
                     </span>
                     <div className="relative z-10 flex size-14 items-center justify-center rounded-full border border-neutral-600/60 bg-neutral-700 shadow-sm">
-                      <s.icon className="size-5 text-primary-600" aria-hidden strokeWidth={2} />
+                      <s.icon
+                        className="size-5 text-primary-600"
+                        aria-hidden
+                        strokeWidth={2}
+                      />
                     </div>
                   </div>
-                  <h3 className="mb-3 font-sans text-[15px] font-bold text-neutral-100">{t(`step.${i + 1}.title`)}</h3>
-                  <p className="font-sans text-[13px] font-light leading-[1.7] text-neutral-300">{t(`step.${i + 1}.body`)}</p>
+                  <h3 className="mb-3 font-sans text-[15px] font-bold text-neutral-100">
+                    {t(`step.${i + 1}.title`)}
+                  </h3>
+                  <p className="font-sans text-[13px] font-light leading-[1.7] text-neutral-300">
+                    {t(`step.${i + 1}.body`)}
+                  </p>
                 </div>
               </FadeUp>
             ))}

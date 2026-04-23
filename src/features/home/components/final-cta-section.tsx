@@ -51,7 +51,7 @@ export const FinalCtaSection = () => {
 
       <div className="relative z-10 w-full max-w-[600px]">
         <FadeUp>
-          <p className="mb-5 font-sans text-[10px] font-bold uppercase tracking-[0.35em] text-primary-600">
+          <p className="mb-5 font-sans text-[10px] font-bold uppercase tracking-[0.35em] text-auxiliary-300">
             {t('finalCta.label')}
           </p>
           <h2
@@ -61,7 +61,7 @@ export const FinalCtaSection = () => {
             {t('finalCta.heading1')}
             <br />
             {t('finalCta.heading2')}{' '}
-            <span className="bg-gradient-to-r from-primary-600 to-primary-300 bg-clip-text font-display font-bold not-italic text-transparent">
+            <span className="bg-linear-to-r from-primary-300 to-primary-500 bg-clip-text font-display font-bold not-italic text-transparent">
               {t('finalCta.heading3')}
             </span>
             .

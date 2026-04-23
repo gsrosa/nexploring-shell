@@ -26,7 +26,7 @@ const DestinationCard = ({ d, onPlan }: DestinationCardProps) => {
     <button
       type="button"
       onClick={() => onPlan(d.name)}
-      className="group relative aspect-[3/4] w-[clamp(220px,24vw,276px)] shrink-0 cursor-pointer overflow-hidden rounded-2xl border border-neutral-700/80 text-left transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_70px_rgba(17,19,23,0.18)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-500 focus-visible:ring-offset-0"
+      className="group relative aspect-3/4 w-[clamp(220px,24vw,276px)] shrink-0 cursor-pointer overflow-hidden rounded-2xl border border-neutral-700/80 text-left transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_70px_rgba(17,19,23,0.18)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-500 focus-visible:ring-offset-0"
     >
       <div
         className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.07]"
@@ -46,16 +46,22 @@ const DestinationCard = ({ d, onPlan }: DestinationCardProps) => {
           {d.tags.map((t) => (
             <span
               key={t}
-              className="rounded px-1.5 py-0.5 font-sans text-[9px] font-bold uppercase tracking-wide text-neutral-300 bg-neutral-600/20"
+              className="rounded-full px-1.5 py-0.5 font-sans text-[9px] font-bold uppercase tracking-wide text-neutral-200 bg-neutral-600/40"
             >
               {t}
             </span>
           ))}
         </div>
-        <div className="mb-1 font-display text-lg font-bold leading-tight text-neutral-100">{d.name}</div>
-        <div className="mb-2 font-sans text-[10px] uppercase tracking-[0.1em] text-neutral-400">{d.country}</div>
-        <div className="mb-3 font-display text-xs italic leading-relaxed text-neutral-300/90">&ldquo;{d.hook}&rdquo;</div>
-        <div className="translate-y-1 font-sans text-[11px] font-bold tracking-wide text-primary-600 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+        <div className="mb-1 font-display text-lg font-bold leading-tight text-neutral-50">
+          {d.name}
+        </div>
+        <div className="mb-2 font-sans text-[10px] uppercase tracking-widest text-neutral-300">
+          {d.country}
+        </div>
+        <div className="mb-3 font-display text-xs italic leading-relaxed text-neutral-300/90 text-nowrap line-clamp-1">
+          &ldquo;{d.hook}&rdquo;
+        </div>
+        <div className="translate-y-1 font-sans text-[11px] font-bold tracking-wide text-primary-300 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
           {t('destinations.planThis')}
         </div>
       </div>
@@ -94,7 +100,8 @@ export const DestinationsSection = () => {
   const handleMouseMove = React.useCallback(
     (e: MouseEvent) => {
       if (!isDragging || !scrollRef.current) return;
-      scrollRef.current.scrollLeft = dragStart.current.scroll - (e.clientX - dragStart.current.x);
+      scrollRef.current.scrollLeft =
+        dragStart.current.scroll - (e.clientX - dragStart.current.x);
     },
     [isDragging],
   );
@@ -110,7 +117,7 @@ export const DestinationsSection = () => {
         <div className="mb-10 px-6 md:px-12 lg:px-20">
           <div className="mx-auto flex max-w-[1200px] flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="mb-3 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-primary-600">
+              <p className="mb-3 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-auxiliary-300">
                 {t('destinations.label')}
               </p>
               <h2
@@ -118,13 +125,15 @@ export const DestinationsSection = () => {
                 className="font-display text-[clamp(1.6rem,3.5vw,2.8rem)] font-bold italic text-neutral-100"
               >
                 {t('destinations.heading1')}{' '}
-                <span className="bg-gradient-to-r from-primary-600 to-primary-300 bg-clip-text font-display font-bold not-italic text-transparent">
+                <span className="bg-linear-to-r from-primary-300 to-primary-500 bg-clip-text font-display font-bold not-italic text-transparent">
                   {t('destinations.heading2')}
                 </span>
                 .
               </h2>
             </div>
-            <span className="font-sans text-xs tracking-wide text-neutral-400">{t('destinations.dragHint')}</span>
+            <span className="font-sans text-xs tracking-wide text-neutral-400">
+              {t('destinations.dragHint')}
+            </span>
           </div>
         </div>
       </FadeUp>

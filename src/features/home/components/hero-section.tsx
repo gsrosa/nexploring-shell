@@ -54,7 +54,7 @@ export const HeroSection = () => {
       <div className="relative z-10 mx-auto flex w-full max-w-[1200px] flex-wrap items-center gap-12 px-6 pb-16 pt-28 md:gap-16 md:px-12 md:pt-32 lg:px-20">
         <div className="min-w-[min(100%,320px)] flex-1">
           <FadeUp>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary-400/25 bg-primary-500/10 px-3.5 py-1.5 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-primary-600">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary-400 bg-primary-200/10 px-3.5 py-1.5 font-sans text-[10px] uppercase tracking-[0.3em] text-primary-300 font-bold">
               <ZapIcon className="size-3" aria-hidden strokeWidth={2.5} />
               {t('hero.badge')}
             </div>
@@ -66,7 +66,7 @@ export const HeroSection = () => {
               className="mb-6 font-display text-[clamp(2.2rem,5vw,3.8rem)] font-bold italic leading-[1.06] tracking-tight text-neutral-200"
             >
               Your trips, planned by{' '}
-              <span className="bg-gradient-to-r from-primary-600 to-primary-300 bg-clip-text font-display font-bold not-italic text-transparent">
+              <span className="bg-linear-to-r from-primary-200 to-primary-500 bg-clip-text font-display font-bold not-italic text-transparent">
                 artificial intelligence
               </span>{' '}
               that understands you.
@@ -117,7 +117,8 @@ export const HeroSection = () => {
           <FadeUp delay={320}>
             <div className="flex flex-wrap items-center gap-6 font-sans text-[11px] text-neutral-400">
               <span className="flex items-center gap-1.5">
-                <span className="size-1.5 rounded-full bg-success-500" /> {t('hero.stat.travelers')}
+                <span className="size-1.5 rounded-full bg-success-500" />{' '}
+                {t('hero.stat.travelers')}
               </span>
               <span>{t('hero.stat.countries')}</span>
               <span>{t('hero.stat.beta')}</span>

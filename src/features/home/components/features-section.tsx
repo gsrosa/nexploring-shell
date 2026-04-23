@@ -17,7 +17,7 @@ export const FeaturesSection = () => {
         <FadeUp>
           <div className="mb-16 flex flex-wrap items-end justify-between gap-6 md:mb-20">
             <div className="max-w-[560px]">
-              <p className="mb-4 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-primary-600">
+              <p className="mb-4 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-auxiliary-400">
                 {t('features.label')}
               </p>
               <h2
@@ -26,7 +26,7 @@ export const FeaturesSection = () => {
               >
                 {t('features.heading1')}
                 <br />
-                <span className="bg-gradient-to-r from-primary-600 to-primary-300 bg-clip-text font-display font-bold not-italic text-transparent">
+                <span className="bg-linear-to-r from-primary-200 to-primary-500 bg-clip-text font-display font-bold not-italic text-transparent">
                   {t('features.heading2')}
                 </span>
               </h2>
@@ -42,28 +42,24 @@ export const FeaturesSection = () => {
             <FadeUp key={`feature-${i + 1}`} delay={i * 80}>
               <div
                 className={cn(
-                  'group relative h-full overflow-hidden rounded-2xl border border-neutral-700/80 bg-neutral-800/80 p-8 transition-all duration-300 md:p-10',
-                  'hover:border-neutral-500 hover:bg-neutral-700 hover:shadow-[0_24px_70px_rgba(0,0,0,0.35)]',
+                  'group relative h-full overflow-hidden rounded-2xl border border-neutral-700/80 bg-neutral-800 p-8 transition-all duration-300 md:p-10',
+                  'hover:border-neutral-700 hover:bg-neutral-700 hover:shadow-[0_24px_70px_rgba(0,0,0,0.35)]',
                 )}
               >
                 <div
                   className={cn(
-                    'pointer-events-none absolute right-0 top-0 size-32 rounded-full opacity-0 blur-[80px] transition-opacity duration-300 group-hover:opacity-100',
-                    f.accent === 'primary' ? 'bg-primary-400/25' : 'bg-auxiliary-400/20',
-                  )}
-                />
-                <div
-                  className={cn(
-                    'mb-6 flex size-12 items-center justify-center rounded-xl transition-colors',
+                    'mb-6 flex size-12 items-center justify-center rounded-full transition-colors',
                     f.accent === 'primary'
-                      ? 'bg-primary-500/10 group-hover:bg-primary-500/18'
-                      : 'bg-auxiliary-500/10 group-hover:bg-auxiliary-500/18',
+                      ? 'bg-primary-500/15 group-hover:bg-primary-500/18'
+                      : 'bg-auxiliary-500/15 group-hover:bg-auxiliary-500/18',
                   )}
                 >
                   <f.icon
                     className={cn(
                       'size-5',
-                      f.accent === 'primary' ? 'text-primary-600' : 'text-auxiliary-600',
+                      f.accent === 'primary'
+                        ? 'text-primary-400'
+                        : 'text-auxiliary-300',
                     )}
                     aria-hidden
                     strokeWidth={2}
@@ -72,7 +68,9 @@ export const FeaturesSection = () => {
                 <h3 className="mb-3 font-display text-lg font-semibold leading-tight text-neutral-100">
                   {t(`feature.${i + 1}.title`)}
                 </h3>
-                <p className="font-sans text-[14px] font-light leading-[1.7] text-neutral-300">{t(`feature.${i + 1}.body`)}</p>
+                <p className="font-sans text-[14px] font-light leading-[1.7] text-neutral-300">
+                  {t(`feature.${i + 1}.body`)}
+                </p>
               </div>
             </FadeUp>
           ))}

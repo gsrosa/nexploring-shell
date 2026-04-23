@@ -15,7 +15,7 @@ export const SocialProofSection = () => {
       <div className="mx-auto max-w-[1200px]">
         <FadeUp>
           <div className="mb-16 text-center">
-            <p className="mb-4 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-primary-600">
+            <p className="mb-4 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-auxiliary-300">
               {t('socialProof.label')}
             </p>
             <h2
@@ -23,7 +23,7 @@ export const SocialProofSection = () => {
               className="font-display text-[clamp(1.6rem,3.5vw,2.8rem)] font-bold italic text-neutral-100"
             >
               {t('socialProof.heading1')}{' '}
-              <span className="bg-gradient-to-r from-primary-600 to-primary-300 bg-clip-text font-display font-bold not-italic text-transparent">
+              <span className="bg-linear-to-r from-primary-300 to-primary-500 bg-clip-text font-display font-bold not-italic text-transparent">
                 {t('socialProof.heading2')}
               </span>
               .
@@ -35,7 +35,7 @@ export const SocialProofSection = () => {
           {HOME_TESTIMONIALS_MARKETING.map((t, i) => (
             <FadeUp key={t.name} delay={i * 100}>
               <figure className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-700/80 bg-neutral-900/80 p-8 shadow-sm">
-                <span className="pointer-events-none absolute -top-2 left-4 select-none font-display text-[100px] font-bold leading-none text-primary-500/[0.07]">
+                <span className="pointer-events-none absolute -top-2 left-4 select-none font-display text-[100px] font-bold leading-none text-neutral-500/10">
                   &ldquo;
                 </span>
                 <blockquote className="relative z-10 mb-6 flex-1 font-display text-[clamp(14px,1.4vw,16px)] italic leading-[1.65] text-neutral-100">
@@ -46,8 +46,12 @@ export const SocialProofSection = () => {
                     {t.name[0]}
                   </div>
                   <div>
-                    <div className="font-sans text-[13px] font-bold text-neutral-100">{t.name}</div>
-                    <div className="font-sans text-[11px] text-neutral-400">{t.city}</div>
+                    <div className="font-sans text-[13px] font-bold text-neutral-100">
+                      {t.name}
+                    </div>
+                    <div className="font-sans text-[11px] text-neutral-400">
+                      {t.city}
+                    </div>
                   </div>
                 </figcaption>
               </figure>

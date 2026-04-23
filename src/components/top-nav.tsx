@@ -100,7 +100,10 @@ const TopNavNav = () => {
   const pathname = usePathname();
 
   return (
-    <nav aria-label="Main navigation" className="hidden items-center gap-1 md:flex">
+    <nav
+      aria-label="Main navigation"
+      className="hidden items-center gap-1 md:flex"
+    >
       {NAV_ITEMS.map((item) => {
         const Icon = item.icon;
 
@@ -206,16 +209,22 @@ const TopNavAuth = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-48">
             {userApp && (
-              <DropdownMenuItem onClick={() => router.push(ROUTES.PROFILE_ABOUT)}>
+              <DropdownMenuItem
+                onClick={() => router.push(ROUTES.PROFILE_ABOUT)}
+              >
                 <UserIcon strokeWidth={2} />
                 {t('nav.profile')}
               </DropdownMenuItem>
             )}
-            <DropdownMenuItem onClick={() => router.push(ROUTES.PROFILE_BILLING)}>
+            <DropdownMenuItem
+              onClick={() => router.push(ROUTES.PROFILE_BILLING)}
+            >
               <CreditCardIcon strokeWidth={2} />
               {t('nav.billing')}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => router.push(ROUTES.PROFILE_PREFERENCES)}>
+            <DropdownMenuItem
+              onClick={() => router.push(ROUTES.PROFILE_PREFERENCES)}
+            >
               <SlidersIcon strokeWidth={2} />
               {t('nav.preferences')}
             </DropdownMenuItem>
@@ -258,8 +267,6 @@ const TopNavAuth = () => {
 };
 
 export const TopNav = React.memo(() => {
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
-
   return (
     <>
       <header
@@ -267,28 +274,13 @@ export const TopNav = React.memo(() => {
         className="sticky top-0 z-30 shrink-0 border-b border-white/6 bg-neutral-900 backdrop-blur-xl"
       >
         <div className="flex min-h-[52px] w-full items-center justify-between gap-4 px-4 md:min-h-[60px] md:px-6 lg:min-h-16 lg:px-10">
-          <div className="flex items-center gap-3">
-            {/* Hamburger — mobile only */}
-            <button
-              type="button"
-              aria-label="Open navigation menu"
-              aria-expanded={drawerOpen}
-              aria-controls="mobile-drawer"
-              onClick={() => setDrawerOpen(true)}
-              className="flex size-8 items-center justify-center rounded-lg text-neutral-400 transition-colors hover:bg-white/8 hover:text-neutral-100 md:hidden"
-            >
-              <MenuIcon className="size-5" aria-hidden />
-            </button>
-            <TopNavBrand />
-          </div>
+          <TopNavBrand />
           <div className="flex items-center gap-2">
             <TopNavNav />
-            <LocaleSwitcher />
             <TopNavAuth />
           </div>
         </div>
       </header>
-      <MobileDrawer isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </>
   );
 });
