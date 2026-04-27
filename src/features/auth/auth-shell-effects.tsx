@@ -2,20 +2,25 @@
 
 import React from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import { useAuthUiStore } from '@/features/auth/auth-ui-store';
 import { useSession } from '@/features/auth/use-session';
 import { useCreditsStore } from '@/features/credits/credits-store';
 
-import { trpc } from '@/lib/trpc';
+import { useTrpc } from '@/trpc/client';
 
 /** Listens for `atlas:request-login` and eagerly warms the session cache. */
 export const AuthShellEffects = () => {
-  const utils = trpc.useUtils();
+  const trpc = useTrpc();
+  const queryClient = useQueryClient();
   const { profile } = useSession();
 
   React.useEffect(() => {
-    void utils.users.me.prefetch(undefined, { retry: false });
-  }, [utils]);
+    void queryClient.prefetchQuery(
+      trpc.users.me.queryOptions(undefined, { retry: false }),
+    );
+  }, [queryClient, trpc]);
 
   // Sync credits balance from session into the credits store
   React.useEffect(() => {
@@ -35,7 +40,7 @@ export const AuthShellEffects = () => {
 
   React.useEffect(() => {
     const handleTravelerProfileUpdated = () => {
-      void utils.travelerProfile.get.invalidate();
+      void queryClient.invalidateQueries(trpc.travelerProfile.get.queryFilter());
     };
     window.addEventListener(
       'atlas:traveler-profile-updated',
@@ -46,11 +51,12 @@ export const AuthShellEffects = () => {
         'atlas:traveler-profile-updated',
         handleTravelerProfileUpdated,
       );
-  }, [utils]);
+  }, [queryClient, trpc]);
 
   // Credits events dispatched by MFEs
   React.useEffect(() => {
-    const handleCreditsUpdated = () => void utils.users.me.invalidate();
+    const handleCreditsUpdated = () =>
+      void queryClient.invalidateQueries(trpc.users.me.queryFilter());
     const handleOpenPurchaseModal = () =>
       useCreditsStore.getState().openPurchaseModal();
 
@@ -60,7 +66,7 @@ export const AuthShellEffects = () => {
       window.removeEventListener('atlas:credits-updated', handleCreditsUpdated);
       window.removeEventListener('atlas:open-purchase-modal', handleOpenPurchaseModal);
     };
-  }, [utils]);
+  }, [queryClient, trpc]);
 
   return null;
 };

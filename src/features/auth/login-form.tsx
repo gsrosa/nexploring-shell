@@ -10,27 +10,31 @@ import {
   Input,
   Label,
 } from '@gsrosa/nexploring-ui';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { isTRPCClientError } from '@trpc/client';
 import { useTranslation } from 'react-i18next';
 
 import { useAuthUiStore } from '@/features/auth/auth-ui-store';
 
-import { trpc } from '@/lib/trpc';
+import { useTrpc } from '@/trpc/client';
 
 export const LoginForm = () => {
   const { t } = useTranslation('common');
   const closeLogin = useAuthUiStore((s) => s.closeLogin);
-  const utils = trpc.useUtils();
+  const trpc = useTrpc();
+  const queryClient = useQueryClient();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const signIn = trpc.auth.signIn.useMutation({
-    onSuccess: async () => {
-      await utils.users.me.invalidate();
-      closeLogin();
-      setPassword('');
-    },
-  });
+  const signIn = useMutation(
+    trpc.auth.signIn.mutationOptions({
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(trpc.users.me.queryFilter());
+        closeLogin();
+        setPassword('');
+      },
+    }),
+  );
 
   const errorMessage =
     signIn.isError && isTRPCClientError(signIn.error)

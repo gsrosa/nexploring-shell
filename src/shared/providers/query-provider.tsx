@@ -3,11 +3,12 @@
 import React from 'react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { httpBatchLink } from '@trpc/client';
+import { createTRPCClient, httpBatchLink } from '@trpc/client';
 import type { ReactNode } from 'react';
 import superjson from 'superjson';
 
-import { trpc } from '@/lib/trpc';
+import { TRPCProvider } from '@/trpc/client';
+import type { AppRouter } from '@/trpc/types';
 
 const defaultApi = 'http://127.0.0.1:4000';
 
@@ -16,27 +17,35 @@ const trpcUrl = (): string => {
   return `${base}/trpc`;
 };
 
-// Module-level singleton — survives React StrictMode double-mounts, HMR, and
-// error-boundary retries. Prevents auth/session cache from being wiped and
-// forcing "Checking your session…" on every protected-route visit.
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 60 * 1000, // 1 min — skip refetch on quick re-navigations
-      gcTime: 10 * 60 * 1000, // 10 min — keep unused entries alive
-      retry: 1,
-      refetchOnWindowFocus: false,
+function makeQueryClient() {
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 60 * 1000,
+      },
     },
-  },
-});
+  });
+}
+ 
+let browserQueryClient: QueryClient | undefined = undefined;
+ 
+function getQueryClient() {
+  if (typeof window === 'undefined') {
+    return makeQueryClient();
+  } else {
+    if (!browserQueryClient) browserQueryClient = makeQueryClient();
+    return browserQueryClient;
+  }
+}
 
 type Props = {
   children: ReactNode;
 };
 
 export const QueryProvider = ({ children }: Props) => {
+  const queryClient = getQueryClient();
   const [trpcClient] = React.useState(() =>
-    trpc.createClient({
+    createTRPCClient<AppRouter>({
       links: [
         httpBatchLink({
           url: trpcUrl(),
@@ -53,8 +62,10 @@ export const QueryProvider = ({ children }: Props) => {
   );
 
   return (
-    <trpc.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    </trpc.Provider>
+    <QueryClientProvider client={queryClient}>
+      <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
+        {children}
+      </TRPCProvider>
+    </QueryClientProvider>
   );
 };

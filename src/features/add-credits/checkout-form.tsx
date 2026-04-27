@@ -4,6 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Button, cn, Input, Label } from '@gsrosa/nexploring-ui';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   CheckCircle2Icon,
   CreditCardIcon,
@@ -17,9 +18,9 @@ import { useTranslation } from 'react-i18next';
 
 import { useSession } from '@/features/auth/use-session';
 
-import { trpc } from '@/lib/trpc';
 import type { CreditBundle } from '@/shared/constants/credits';
 import { ROUTES } from '@/shared/constants/shell-routes';
+import { useTrpc } from '@/trpc/client';
 
 type CardBrand = 'visa' | 'mastercard' | 'amex' | 'unknown';
 
@@ -284,15 +285,18 @@ export const CheckoutForm = ({ bundle, onBack }: Props) => {
   const { t } = useTranslation(['payment', 'common']);
   const router = useRouter();
   const { profile } = useSession();
-  const utils = trpc.useUtils();
+  const trpc = useTrpc();
+  const queryClient = useQueryClient();
   const [success, setSuccess] = React.useState(false);
 
-  const addFunds = trpc.credits.addFunds.useMutation({
-    onSuccess: async () => {
-      await utils.users.me.invalidate();
-      setSuccess(true);
-    },
-  });
+  const addFunds = useMutation(
+    trpc.credits.addFunds.mutationOptions({
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(trpc.users.me.queryFilter());
+        setSuccess(true);
+      },
+    }),
+  );
 
   const displayName = [profile?.first_name, profile?.last_name]
     .filter(Boolean)
@@ -584,6 +588,7 @@ export const CheckoutForm = ({ bundle, onBack }: Props) => {
                       setSelectedSavedCard(sc.id);
                       setAddingNewCard(false);
                     }}
+                    onDelete={() => {}}
                   />
                 ))}
               </div>

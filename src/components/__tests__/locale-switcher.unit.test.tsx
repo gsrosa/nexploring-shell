@@ -28,13 +28,31 @@ vi.mock('@gsrosa/nexploring-ui', async (importOriginal) => {
 });
 
 const mockMutate = vi.fn();
-vi.mock('@/lib/trpc', () => ({
-  trpc: {
+vi.mock('@/trpc/client', () => ({
+  useTrpc: () => ({
     users: {
-      updateMe: { useMutation: () => ({ mutate: mockMutate }) },
+      updateMe: {
+        mutationOptions: () => ({
+          mutationKey: ['mock', 'users', 'updateMe'],
+          mutationFn: async () => ({}),
+        }),
+      },
     },
-  },
+  }),
 }));
+
+vi.mock('@tanstack/react-query', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@tanstack/react-query')>();
+  return {
+    ...actual,
+    useMutation: () => ({
+      mutate: mockMutate,
+      isPending: false,
+      isError: false,
+      error: null,
+    }),
+  };
+});
 
 vi.mock('@/features/auth/use-session', () => ({
   useSession: () => ({ isAuthenticated: false }),

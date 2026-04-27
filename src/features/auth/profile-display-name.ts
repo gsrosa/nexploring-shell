@@ -1,4 +1,4 @@
-import type { RouterOutputs } from 'nexploring-bff/trpc';
+import type { RouterOutputs } from '@/trpc/types';
 
 type ProfileRow = RouterOutputs['users']['me']['profile'];
 

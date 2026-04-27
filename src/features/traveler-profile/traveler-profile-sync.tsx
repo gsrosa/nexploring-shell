@@ -2,9 +2,11 @@
 
 import React from 'react';
 
+import { useQuery } from '@tanstack/react-query';
+
 import { useSession } from '@/features/auth/use-session';
 
-import { trpc } from '@/lib/trpc';
+import { useTrpc } from '@/trpc/client';
 
 import { useTravelerProfileUiStore } from './traveler-profile-store';
 
@@ -12,12 +14,15 @@ import { useTravelerProfileUiStore } from './traveler-profile-store';
 export const TravelerProfileSync = React.memo(() => {
   const { isAuthenticated, isLoading } = useSession();
   const setSnapshot = useTravelerProfileUiStore((s) => s.setSnapshot);
+  const trpc = useTrpc();
 
-  const query = trpc.travelerProfile.get.useQuery(undefined, {
-    enabled: Boolean(isAuthenticated && !isLoading),
-    staleTime: 30_000,
-    retry: 1,
-  });
+  const query = useQuery(
+    trpc.travelerProfile.get.queryOptions(undefined, {
+      enabled: Boolean(isAuthenticated && !isLoading),
+      staleTime: 30_000,
+      retry: 1,
+    }),
+  );
 
   React.useEffect(() => {
     if (!isAuthenticated || isLoading) {

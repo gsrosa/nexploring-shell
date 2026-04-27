@@ -1,13 +1,17 @@
+import { useQuery } from '@tanstack/react-query';
 import { isTRPCClientError } from '@trpc/client';
 
-import { trpc } from '@/lib/trpc';
+import { useTrpc } from '@/trpc/client';
 
 export const useSession = () => {
-  const me = trpc.users.me.useQuery(undefined, {
-    retry: false,
-    staleTime: 5 * 60 * 1000,  // session doesn't change often; skip background refetches
-    refetchOnWindowFocus: true, // still re-validate when tab regains focus
-  });
+  const trpc = useTrpc();
+  const me = useQuery(
+    trpc.users.me.queryOptions(undefined, {
+      retry: false,
+      staleTime: 5 * 60 * 1000, // session doesn't change often; skip background refetches
+      refetchOnWindowFocus: true, // still re-validate when tab regains focus
+    }),
+  );
 
   const isAuthenticated = me.isSuccess;
   const isLoading = me.isPending;

@@ -13,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@gsrosa/nexploring-ui';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   CompassIcon,
   CreditCardIcon,
@@ -29,8 +30,8 @@ import { profileDisplayName } from '@/features/auth/profile-display-name';
 import { useSession } from '@/features/auth/use-session';
 
 import { isFeatureEnabled } from '@/config/feature-flags';
-import { trpc } from '@/lib/trpc';
 import { ROUTES } from '@/shared/constants/shell-routes';
+import { useTrpc } from '@/trpc/client';
 
 import { CreditChip } from './credit-chip';
 
@@ -150,16 +151,19 @@ const TopNavAuth = () => {
   const openLogin = useAuthUiStore((s) => s.openLogin);
   const openSignUp = useAuthUiStore((s) => s.openSignUp);
   const router = useRouter();
-  const utils = trpc.useUtils();
+  const trpc = useTrpc();
+  const queryClient = useQueryClient();
 
-  const signOut = trpc.auth.signOut.useMutation({
-    onSuccess: async () => {
-      await Promise.all([
-        utils.users.me.invalidate(),
-        utils.travelerProfile.get.invalidate(),
-      ]);
-    },
-  });
+  const signOut = useMutation(
+    trpc.auth.signOut.mutationOptions({
+      onSuccess: async () => {
+        await Promise.all([
+          queryClient.invalidateQueries(trpc.users.me.queryFilter()),
+          queryClient.invalidateQueries(trpc.travelerProfile.get.queryFilter()),
+        ]);
+      },
+    }),
+  );
 
   if (isLoading) {
     return (

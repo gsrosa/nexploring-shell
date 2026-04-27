@@ -56,16 +56,39 @@ vi.mock('@/features/auth/auth-ui-store', () => ({
     selector({ openLogin: vi.fn() }),
 }));
 
-vi.mock('@/lib/trpc', () => ({
-  trpc: {
-    useUtils: () => ({}),
+vi.mock('@/trpc/client', () => ({
+  useTrpc: () => ({
     auth: {
       signOut: {
-        useMutation: () => ({ mutate: vi.fn(), isPending: false }),
+        mutationOptions: () => ({
+          mutationKey: ['mock', 'auth', 'signOut'],
+          mutationFn: async () => ({}),
+        }),
       },
     },
-  },
+    users: { me: { queryFilter: () => ({ queryKey: ['users', 'me'] }) } },
+    travelerProfile: {
+      get: { queryFilter: () => ({ queryKey: ['travelerProfile', 'get'] }) },
+    },
+  }),
 }));
+
+vi.mock('@tanstack/react-query', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@tanstack/react-query')>();
+  return {
+    ...actual,
+    useMutation: () => ({ mutate: vi.fn(), isPending: false }),
+    useQueryClient: () => ({
+      invalidateQueries: vi.fn().mockResolvedValue(undefined),
+    }),
+    useQuery: () => ({
+      data: undefined,
+      isPending: false,
+      isError: false,
+      error: null,
+    }),
+  };
+});
 
 // ── Tests ──────────────────────────────────────────────────────────────────
 

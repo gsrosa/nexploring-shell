@@ -15,12 +15,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@gsrosa/nexploring-ui';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { isTRPCClientError } from '@trpc/client';
 import { useTranslation } from 'react-i18next';
 
 import { useAuthUiStore } from '@/features/auth/auth-ui-store';
 
-import { trpc } from '@/lib/trpc';
+import { useTrpc } from '@/trpc/client';
 
 type Step = 'account' | 'profile';
 
@@ -41,7 +42,8 @@ type ProfileFields = {
 export const SignUpForm = () => {
   const { t } = useTranslation('common');
   const closeSignUp = useAuthUiStore((s) => s.closeSignUp);
-  const utils = trpc.useUtils();
+  const trpc = useTrpc();
+  const queryClient = useQueryClient();
 
   const [step, setStep] = React.useState<Step>('account');
   const [account, setAccount] = React.useState<AccountFields>({
@@ -58,12 +60,14 @@ export const SignUpForm = () => {
   });
   const [accountError, setAccountError] = React.useState<string | null>(null);
 
-  const signUp = trpc.auth.signUp.useMutation({
-    onSuccess: async () => {
-      await utils.users.me.invalidate();
-      closeSignUp();
-    },
-  });
+  const signUp = useMutation(
+    trpc.auth.signUp.mutationOptions({
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(trpc.users.me.queryFilter());
+        closeSignUp();
+      },
+    }),
+  );
 
   const errorMessage =
     signUp.isError && isTRPCClientError(signUp.error)
@@ -74,6 +78,10 @@ export const SignUpForm = () => {
 
   const handleAccountNext = (e: React.FormEvent) => {
     e.preventDefault();
+    if (account.password.length < 8) {
+      setAccountError(t('auth.passwordTooShort'));
+      return;
+    }
     if (account.password !== account.confirmPassword) {
       setAccountError(t('auth.passwordsMismatch'));
       return;
@@ -84,6 +92,11 @@ export const SignUpForm = () => {
 
   const handleProfileSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (account.password.length < 8) {
+      setStep('account');
+      setAccountError(t('auth.passwordTooShort'));
+      return;
+    }
     signUp.mutate({
       email: account.email.trim(),
       password: account.password,
@@ -129,6 +142,8 @@ export const SignUpForm = () => {
             value={account.password}
             onChange={(e) => setAccount((p) => ({ ...p, password: e.target.value }))}
             required
+            minLength={8}
+            maxLength={128}
             placeholder="••••••••••••"
           />
           <p className="text-xs text-neutral-500">{t('auth.passwordHint')}</p>
@@ -146,6 +161,8 @@ export const SignUpForm = () => {
               setAccount((p) => ({ ...p, confirmPassword: e.target.value }))
             }
             required
+            minLength={8}
+            maxLength={128}
             placeholder="••••••••••••"
           />
         </div>

@@ -1,13 +1,14 @@
 'use client';
 
 import { cn } from '@gsrosa/nexploring-ui';
+import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 
 import { useSession } from '@/features/auth/use-session';
 
 import type { SupportedLocale } from '@/lib/i18n';
-import { persistLocale,SUPPORTED } from '@/lib/i18n';
-import { trpc } from '@/lib/trpc';
+import { persistLocale, SUPPORTED } from '@/lib/i18n';
+import { useTrpc } from '@/trpc/client';
 
 const LOCALES: { value: SupportedLocale; label: string }[] = [
   { value: 'en-US', label: 'EN' },
@@ -18,7 +19,8 @@ const LOCALES: { value: SupportedLocale; label: string }[] = [
 export const LocaleSwitcher = () => {
   const { i18n } = useTranslation();
   const { isAuthenticated } = useSession();
-  const updateMe = trpc.users.updateMe.useMutation();
+  const trpc = useTrpc();
+  const updateMe = useMutation(trpc.users.updateMe.mutationOptions());
 
   const current = (SUPPORTED as readonly string[]).includes(i18n.language)
     ? (i18n.language as SupportedLocale)
@@ -27,16 +29,14 @@ export const LocaleSwitcher = () => {
   const handleChange = (locale: SupportedLocale) => {
     if (locale === current) return;
 
-    // Apply immediately
     void i18n.changeLanguage(locale);
 
-    // Persist via cookie so locale survives page reloads
     persistLocale(locale);
 
-    // Notify all MFEs
-    window.dispatchEvent(new CustomEvent('atlas:locale-changed', { detail: { locale } }));
+    window.dispatchEvent(
+      new CustomEvent('atlas:locale-changed', { detail: { locale } }),
+    );
 
-    // Persist to user profile when logged in
     if (isAuthenticated) {
       updateMe.mutate({ preferred_locale: locale });
     }
