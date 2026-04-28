@@ -14,7 +14,7 @@ export const HOME_FEATURE_BLOCKS: HomeFeatureBlock[] = [
   {
     icon: BrainIcon,
     title: 'Learns your travel DNA',
-    body: 'Your pace, budget, energy levels, and preferences shape every plan. Solo adventurer, couple on a getaway, or family vacation — Atlas adapts to how you actually travel.',
+    body: 'Your pace, budget, energy levels, and preferences shape every plan. Solo adventurer, couple on a getaway, or family vacation — Nexploring adapts to how you actually travel.',
     accent: 'primary',
   },
   {
@@ -32,7 +32,7 @@ export const HOME_FEATURE_BLOCKS: HomeFeatureBlock[] = [
   {
     icon: RotateCcwIcon,
     title: 'Living itineraries',
-    body: 'Change a flight, swap a hotel, skip a day — Atlas recalculates everything downstream. Your plan is always consistent.',
+    body: 'Change a flight, swap a hotel, skip a day — Nexploring recalculates everything downstream. Your plan is always consistent.',
     accent: 'auxiliary',
   },
 ];

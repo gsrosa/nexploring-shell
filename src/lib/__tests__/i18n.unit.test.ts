@@ -18,7 +18,7 @@ vi.mock('react-i18next', () => ({ initReactI18next: {} }));
 
 // ── Tests ──────────────────────────────────────────────────────────────────
 
-describe('i18n bootstrap (atlas-shell)', () => {
+describe('i18n bootstrap (nexploring-shell)', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.resetModules();

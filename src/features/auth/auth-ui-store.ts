@@ -18,7 +18,7 @@ export const useAuthUiStore = create<AuthUiState>((set) => ({
   closeSignUp: () => set({ signUpOpen: false }),
 }));
 
-/** Works across microfrontends: shell listens on `atlas:request-login`. */
+/** Works across microfrontends: shell listens on `nexploring:request-login`. */
 export const requestLogin = (): void => {
-  window.dispatchEvent(new CustomEvent('atlas:request-login'));
+  window.dispatchEvent(new CustomEvent('nexploring:request-login'));
 };

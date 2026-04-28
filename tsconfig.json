@@ -22,7 +22,6 @@
     "types": ["@testing-library/jest-dom"],
     "paths": {
       "@/*": ["./src/*"],
-      "atlas-bff/trpc": ["../atlas-bff/types-generated/trpc/export-types.d.ts"],
       "nexploring-bff/trpc": ["../nexploring-bff/types-generated/trpc/export-types.d.ts"]
     },
     "baseUrl": "."

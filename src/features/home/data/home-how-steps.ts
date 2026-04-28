@@ -13,7 +13,7 @@ export const HOME_HOW_STEPS: HomeHowStep[] = [
     n: '01',
     icon: MessageSquareIcon,
     title: 'Describe your trip',
-    body: 'Destination, travel dates, style. Rough ideas are fine — Atlas asks follow-up questions to build your profile.',
+    body: 'Destination, travel dates, style. Rough ideas are fine — Nexploring asks follow-up questions to build your profile.',
   },
   {
     n: '02',
@@ -25,6 +25,6 @@ export const HOME_HOW_STEPS: HomeHowStep[] = [
     n: '03',
     icon: RotateCcwIcon,
     title: 'Edit anything, anytime',
-    body: 'Change one element and Atlas reshuffles the rest. Your plan stays coherent even when your plans change.',
+    body: 'Change one element and Nexploring reshuffles the rest. Your plan stays coherent even when your plans change.',
   },
 ];

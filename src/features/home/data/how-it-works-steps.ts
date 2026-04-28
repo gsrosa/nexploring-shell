@@ -5,7 +5,7 @@ export const HOW_IT_WORKS_STEPS: HowItWorksStep[] = [
     num: '01',
     iconKey: 'map',
     title: 'Describe your adventure',
-    body: 'Destination, travel style, dates. Atlas understands context — "solo", "off the beaten path", "no big cities".',
+    body: 'Destination, travel style, dates. Nexploring understands context — "solo", "off the beaten path", "no big cities".',
   },
   {
     num: '02',
@@ -17,6 +17,6 @@ export const HOW_IT_WORKS_STEPS: HowItWorksStep[] = [
     num: '03',
     iconKey: 'plane',
     title: 'Adjust and go',
-    body: 'Swap a trail, change a hotel, extend a day. Everything connected — change one thing, Atlas recalculates the rest.',
+    body: 'Swap a trail, change a hotel, extend a day. Everything connected — change one thing, Nexploring recalculates the rest.',
   },
 ];

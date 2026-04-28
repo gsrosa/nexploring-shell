@@ -9,7 +9,7 @@ export const HOME_PRECISION_BULLETS = [
   },
   {
     title: 'Live itinerary sync',
-    body: 'Update one element — a flight, a hotel, an activity — and Atlas cascades the change through your whole trip.',
+    body: 'Update one element — a flight, a hotel, an activity — and Nexploring cascades the change through your whole trip.',
   },
 ] as const;
 

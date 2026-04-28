@@ -48,7 +48,7 @@ export const AiChatDemo = () => {
           <SparklesIcon className="size-4" strokeWidth={2} />
         </div>
         <div>
-          <div className="font-bold text-[12px] text-white">Atlas AI</div>
+          <div className="font-bold text-[12px] text-white">Nexploring</div>
           <div className="text-[10px] text-white/50">Travel Intelligence</div>
         </div>
         <div className="flex gap-1 ml-auto items-center" aria-hidden="true">
@@ -73,7 +73,7 @@ export const AiChatDemo = () => {
       )}
 
       {step === 1 && (
-        <div className="flex items-center gap-1.5 px-0.5 mb-2.5" aria-label="Atlas is thinking">
+        <div className="flex items-center gap-1.5 px-0.5 mb-2.5" aria-label="Nexploring is thinking">
           <div className="flex gap-1">
             {[0, 1, 2].map((i) => (
               <div
@@ -83,7 +83,7 @@ export const AiChatDemo = () => {
               />
             ))}
           </div>
-          <span className="text-[11px] text-white/40">Atlas is planning…</span>
+          <span className="text-[11px] text-white/40">Nexploring is planning…</span>
         </div>
       )}
 

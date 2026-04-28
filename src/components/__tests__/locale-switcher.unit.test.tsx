@@ -109,11 +109,11 @@ describe('LocaleSwitcher', () => {
     expect(mockChangeLanguage).toHaveBeenCalledWith('pt-BR');
   });
 
-  it('dispatches atlas:locale-changed with the selected locale', async () => {
+  it('dispatches nexploring:locale-changed with the selected locale', async () => {
     const user = userEvent.setup();
     currentLang = 'en-US';
     const dispatched: CustomEvent[] = [];
-    window.addEventListener('atlas:locale-changed', (e) =>
+    window.addEventListener('nexploring:locale-changed', (e) =>
       dispatched.push(e as CustomEvent),
     );
     render(<LocaleSwitcher />);

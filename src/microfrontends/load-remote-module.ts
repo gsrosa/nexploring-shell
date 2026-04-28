@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import * as AtlasUi from '@gsrosa/nexploring-ui';
+import * as NexploringUi from '@gsrosa/nexploring-ui';
 import * as ReactQuery from '@tanstack/react-query';
 import * as LucideReact from 'lucide-react';
 import * as ReactDOM from 'react-dom';
@@ -145,7 +145,7 @@ async function getContainer(remoteName: RemoteKey): Promise<MFContainer> {
     // Share @gsrosa/nexploring-ui for the same reason (requiredVersion: false in MFEs).
     '@gsrosa/nexploring-ui': {
       '0.1.0': {
-        get: () => Promise.resolve(() => AtlasUi),
+        get: () => Promise.resolve(() => NexploringUi),
         loaded: true,
         from: 'shell',
         eager: false,

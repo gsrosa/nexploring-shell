@@ -119,9 +119,9 @@ export const SignUpForm = () => {
         ) : null}
 
         <div className="flex flex-col gap-2">
-          <Label htmlFor="atlas-signup-email">{t('auth.emailLabel')}</Label>
+          <Label htmlFor="nexploring-signup-email">{t('auth.emailLabel')}</Label>
           <Input
-            id="atlas-signup-email"
+            id="nexploring-signup-email"
             name="email"
             type="email"
             autoComplete="email"
@@ -133,9 +133,9 @@ export const SignUpForm = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label htmlFor="atlas-signup-password">{t('auth.passwordLabel')}</Label>
+          <Label htmlFor="nexploring-signup-password">{t('auth.passwordLabel')}</Label>
           <Input
-            id="atlas-signup-password"
+            id="nexploring-signup-password"
             name="password"
             type="password"
             autoComplete="new-password"
@@ -150,9 +150,9 @@ export const SignUpForm = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label htmlFor="atlas-signup-confirm">{t('auth.confirmPasswordLabel')}</Label>
+          <Label htmlFor="nexploring-signup-confirm">{t('auth.confirmPasswordLabel')}</Label>
           <Input
-            id="atlas-signup-confirm"
+            id="nexploring-signup-confirm"
             name="confirmPassword"
             type="password"
             autoComplete="new-password"
@@ -185,9 +185,9 @@ export const SignUpForm = () => {
 
       <div className="grid grid-cols-2 gap-3">
         <div className="flex flex-col gap-2">
-          <Label htmlFor="atlas-signup-first">{t('auth.firstNameLabel')}</Label>
+          <Label htmlFor="nexploring-signup-first">{t('auth.firstNameLabel')}</Label>
           <Input
-            id="atlas-signup-first"
+            id="nexploring-signup-first"
             name="firstName"
             type="text"
             autoComplete="given-name"
@@ -198,9 +198,9 @@ export const SignUpForm = () => {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <Label htmlFor="atlas-signup-last">{t('auth.lastNameLabel')}</Label>
+          <Label htmlFor="nexploring-signup-last">{t('auth.lastNameLabel')}</Label>
           <Input
-            id="atlas-signup-last"
+            id="nexploring-signup-last"
             name="lastName"
             type="text"
             autoComplete="family-name"
@@ -213,7 +213,7 @@ export const SignUpForm = () => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label htmlFor="atlas-signup-gender">{t('auth.genderLabel')}</Label>
+        <Label htmlFor="nexploring-signup-gender">{t('auth.genderLabel')}</Label>
         <Select
           value={profile.gender}
           onValueChange={(v) =>
@@ -224,7 +224,7 @@ export const SignUpForm = () => {
           }
           required
         >
-          <SelectTrigger id="atlas-signup-gender">
+          <SelectTrigger id="nexploring-signup-gender">
             <SelectValue placeholder={t('auth.genderPlaceholder')} />
           </SelectTrigger>
           <SelectContent>
@@ -239,9 +239,9 @@ export const SignUpForm = () => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label htmlFor="atlas-signup-country">{t('auth.countryLabel')}</Label>
+        <Label htmlFor="nexploring-signup-country">{t('auth.countryLabel')}</Label>
         <Input
-          id="atlas-signup-country"
+          id="nexploring-signup-country"
           name="country"
           type="text"
           maxLength={2}
@@ -257,12 +257,12 @@ export const SignUpForm = () => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label htmlFor="atlas-signup-phone">
+        <Label htmlFor="nexploring-signup-phone">
           {t('auth.phoneLabel')}{' '}
           <span className="text-neutral-500">({t('auth.optional')})</span>
         </Label>
         <Input
-          id="atlas-signup-phone"
+          id="nexploring-signup-phone"
           name="phone"
           type="tel"
           autoComplete="tel"

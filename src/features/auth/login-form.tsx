@@ -58,9 +58,9 @@ export const LoginForm = () => {
       ) : null}
 
       <div className="flex flex-col gap-2">
-        <Label htmlFor="atlas-login-email">{t('auth.emailLabel')}</Label>
+        <Label htmlFor="nexploring-login-email">{t('auth.emailLabel')}</Label>
         <Input
-          id="atlas-login-email"
+          id="nexploring-login-email"
           name="email"
           type="email"
           autoComplete="email"
@@ -72,9 +72,9 @@ export const LoginForm = () => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label htmlFor="atlas-login-password">{t('auth.passwordLabel')}</Label>
+        <Label htmlFor="nexploring-login-password">{t('auth.passwordLabel')}</Label>
         <Input
-          id="atlas-login-password"
+          id="nexploring-login-password"
           name="password"
           type="password"
           autoComplete="current-password"

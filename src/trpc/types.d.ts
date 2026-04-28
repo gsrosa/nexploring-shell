@@ -296,7 +296,7 @@ declare const tripItineraryDocumentSchema: z.ZodObject<{
 }>;
 type TripItineraryDocument = z.infer<typeof tripItineraryDocumentSchema>;
 
-/** Wizard + AI answers snapshot (matches atlas-ai-assistant form state). */
+/** Wizard + AI answers snapshot (matches nexploring-ai-assistant form state). */
 type TripFormSnapshot = {
     baseAnswers?: Record<string, string | string[]>;
     aiQuestions?: unknown[];

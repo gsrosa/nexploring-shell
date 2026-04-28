@@ -77,7 +77,7 @@ export const MobileDrawer = ({ isOpen, onClose }: Props) => {
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/6 px-4 py-3">
           <span className="text-sm font-bold tracking-[0.08em] text-neutral-50">
-            ATLAS <span className="font-normal text-primary-500">AI</span>
+            NEXPLOR<span className="font-normal text-primary-500">ING</span>
           </span>
           <button
             type="button"

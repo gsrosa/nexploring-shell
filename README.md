@@ -1,6 +1,6 @@
-# Atlas Shell
+# Nexploring Shell
 
-Shell application for the Atlas AI Platform. Orchestrates microfrontend loading via Module Federation.
+Shell application for the Nexploring platform. Orchestrates microfrontend loading via Module Federation.
 
 ## Setup
 

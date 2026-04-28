@@ -11,7 +11,7 @@ type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
 function getLocaleFromCookie(
   cookieStore: Awaited<ReturnType<typeof cookies>>,
 ): SupportedLocale {
-  const lang = cookieStore.get('atlas-lang')?.value;
+  const lang = cookieStore.get('nexploring-lang')?.value;
   return lang && (SUPPORTED_LOCALES as readonly string[]).includes(lang)
     ? (lang as SupportedLocale)
     : 'en-US';
@@ -20,8 +20,8 @@ function getLocaleFromCookie(
 // eslint-disable-next-line react-refresh/only-export-components
 export const metadata: Metadata = {
   title: {
-    template: '%s | Atlas AI',
-    default: 'Atlas AI — Your trips, planned by AI',
+    template: '%s | Nexploring',
+    default: 'Nexploring — Your trips, planned by AI',
   },
   description:
     'Plan your perfect trip with an AI that understands your style, preferences, and travel goals.',

@@ -10,7 +10,7 @@ import { useCreditsStore } from '@/features/credits/credits-store';
 
 import { useTrpc } from '@/trpc/client';
 
-/** Listens for `atlas:request-login` and eagerly warms the session cache. */
+/** Listens for `nexploring:request-login` and eagerly warms the session cache. */
 export const AuthShellEffects = () => {
   const trpc = useTrpc();
   const queryClient = useQueryClient();
@@ -33,9 +33,9 @@ export const AuthShellEffects = () => {
     const handleRequestLogin = () => {
       useAuthUiStore.getState().openLogin();
     };
-    window.addEventListener('atlas:request-login', handleRequestLogin);
+    window.addEventListener('nexploring:request-login', handleRequestLogin);
     return () =>
-      window.removeEventListener('atlas:request-login', handleRequestLogin);
+      window.removeEventListener('nexploring:request-login', handleRequestLogin);
   }, []);
 
   React.useEffect(() => {
@@ -43,12 +43,12 @@ export const AuthShellEffects = () => {
       void queryClient.invalidateQueries(trpc.travelerProfile.get.queryFilter());
     };
     window.addEventListener(
-      'atlas:traveler-profile-updated',
+      'nexploring:traveler-profile-updated',
       handleTravelerProfileUpdated,
     );
     return () =>
       window.removeEventListener(
-        'atlas:traveler-profile-updated',
+        'nexploring:traveler-profile-updated',
         handleTravelerProfileUpdated,
       );
   }, [queryClient, trpc]);
@@ -60,11 +60,11 @@ export const AuthShellEffects = () => {
     const handleOpenPurchaseModal = () =>
       useCreditsStore.getState().openPurchaseModal();
 
-    window.addEventListener('atlas:credits-updated', handleCreditsUpdated);
-    window.addEventListener('atlas:open-purchase-modal', handleOpenPurchaseModal);
+    window.addEventListener('nexploring:credits-updated', handleCreditsUpdated);
+    window.addEventListener('nexploring:open-purchase-modal', handleOpenPurchaseModal);
     return () => {
-      window.removeEventListener('atlas:credits-updated', handleCreditsUpdated);
-      window.removeEventListener('atlas:open-purchase-modal', handleOpenPurchaseModal);
+      window.removeEventListener('nexploring:credits-updated', handleCreditsUpdated);
+      window.removeEventListener('nexploring:open-purchase-modal', handleOpenPurchaseModal);
     };
   }, [queryClient, trpc]);
 

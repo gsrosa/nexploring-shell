@@ -13,7 +13,7 @@ export const HOME_TESTIMONIALS_MARKETING = [
   },
   {
     quote:
-      'Family of five, 10 days in Costa Rica. Atlas handled nap schedules, kid-friendly trails, and budget. Incredible.',
+      'Family of five, 10 days in Costa Rica. Nexploring handled nap schedules, kid-friendly trails, and budget. Incredible.',
     name: 'Priya N.',
     city: 'Toronto',
   },

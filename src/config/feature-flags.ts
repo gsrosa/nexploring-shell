@@ -1,8 +1,8 @@
 type FeatureFlags = {
   enableAIAssistant: boolean;
-  /** atlas-user MFE (Module Federation `userApp`) */
+  /** nexploring-user MFE (Module Federation `userApp`) */
   enableUserApp: boolean;
-  /** atlas-payment MFE (Module Federation `paymentApp`) */
+  /** nexploring-payment MFE (Module Federation `paymentApp`) */
   enablePaymentApp: boolean;
 };
 

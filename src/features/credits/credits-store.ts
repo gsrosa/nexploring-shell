@@ -28,10 +28,10 @@ export const useCreditsStore = create<CreditsState>((set) => ({
 
 /** MFEs dispatch this after any credit-consuming action to sync the shell balance. */
 export const dispatchCreditsUpdated = (): void => {
-  window.dispatchEvent(new CustomEvent('atlas:credits-updated'));
+  window.dispatchEvent(new CustomEvent('nexploring:credits-updated'));
 };
 
 /** MFEs dispatch this when balance is insufficient to open the PurchaseModal in the shell. */
 export const dispatchOpenPurchaseModal = (): void => {
-  window.dispatchEvent(new CustomEvent('atlas:open-purchase-modal'));
+  window.dispatchEvent(new CustomEvent('nexploring:open-purchase-modal'));
 };

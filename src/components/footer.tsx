@@ -25,7 +25,7 @@ export const Footer = React.memo(() => {
       <div className="flex items-center justify-between flex-wrap gap-2 px-4 py-5 md:px-6 md:py-6 lg:px-10 lg:py-7">
         <div className="hidden md:flex items-center gap-3">
           <img
-            src="/atlas-logo.svg"
+            src="/nexploring-logo.svg"
             alt=""
             width={120}
             height={32}
@@ -40,7 +40,7 @@ export const Footer = React.memo(() => {
         </div>
 
         <span suppressHydrationWarning className="md:hidden text-[11px] text-neutral-500 font-sans">
-          © {currentYear} Atlas AI
+          © {currentYear} Nexploring
         </span>
 
         <nav

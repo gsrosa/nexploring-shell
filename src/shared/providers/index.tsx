@@ -27,7 +27,7 @@ function LocaleSync() {
     if (locale !== i18n.language) {
       void i18n.changeLanguage(locale);
       window.dispatchEvent(
-        new CustomEvent('atlas:locale-changed', { detail: { locale } }),
+        new CustomEvent('nexploring:locale-changed', { detail: { locale } }),
       );
     }
   }, []);
@@ -49,7 +49,7 @@ function LocaleProfileSync() {
       void i18n.changeLanguage(typed);
       persistLocale(typed);
       window.dispatchEvent(
-        new CustomEvent('atlas:locale-changed', { detail: { locale: typed } }),
+        new CustomEvent('nexploring:locale-changed', { detail: { locale: typed } }),
       );
     }
   }, [profile?.preferred_locale]);

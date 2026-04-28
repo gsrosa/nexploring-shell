@@ -731,14 +731,14 @@ export const CheckoutForm = ({ bundle, onBack }: Props) => {
               </p>
               <div className="flex items-center justify-between gap-3">
                 <code className="truncate text-xs font-mono text-neutral-300">
-                  atlas-ai@pagamentos.com.br
+                  nexploring@pagamentos.com.br
                 </code>
                 <button
                   type="button"
                   className="shrink-0 text-xs font-medium text-primary-400 hover:text-primary-300 transition-colors"
                   onClick={() =>
                     void navigator.clipboard.writeText(
-                      'atlas-ai@pagamentos.com.br',
+                      'nexploring@pagamentos.com.br',
                     )
                   }
                 >

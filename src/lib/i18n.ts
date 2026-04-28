@@ -14,7 +14,7 @@ import paymentPt from '../../public/locales/pt-BR/payment.json';
 export const SUPPORTED = ['en-US', 'pt-BR', 'es-ES'] as const;
 export type SupportedLocale = (typeof SUPPORTED)[number];
 
-const LOCALE_COOKIE = 'atlas-lang';
+const LOCALE_COOKIE = 'nexploring-lang';
 
 export function getPersistedLocale(): SupportedLocale {
   try {

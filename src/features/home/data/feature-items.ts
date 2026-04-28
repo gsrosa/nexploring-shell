@@ -3,7 +3,7 @@ import type { HomeFeatureItem } from '../types';
 export const HOME_FEATURE_ITEMS: HomeFeatureItem[] = [
   {
     title: 'Understands how you travel',
-    body: 'Not just "where". Atlas learns your pace, your budget, your appetite for spontaneity versus structure.',
+    body: 'Not just "where". Nexploring learns your pace, your budget, your appetite for spontaneity versus structure.',
   },
   {
     title: 'Built for solo travelers',

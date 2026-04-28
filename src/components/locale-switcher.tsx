@@ -34,7 +34,7 @@ export const LocaleSwitcher = () => {
     persistLocale(locale);
 
     window.dispatchEvent(
-      new CustomEvent('atlas:locale-changed', { detail: { locale } }),
+      new CustomEvent('nexploring:locale-changed', { detail: { locale } }),
     );
 
     if (isAuthenticated) {

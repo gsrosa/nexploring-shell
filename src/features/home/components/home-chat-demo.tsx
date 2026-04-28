@@ -60,7 +60,7 @@ export const HomeChatDemo = ({ onViewFullItinerary }: HomeChatDemoProps) => {
         </div>
         <div>
           <div className="font-sans text-xs font-bold text-neutral-100">
-            Atlas AI
+            Nexploring
           </div>
           <div className="flex items-center gap-1.5">
             <span className="size-1.5 rounded-full bg-success-500 animate-hp-pulse-soft" />

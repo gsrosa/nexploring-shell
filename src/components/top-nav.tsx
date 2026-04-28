@@ -78,14 +78,14 @@ const TopNavBrand = React.memo(() => {
   return (
     <Link
       href="/"
-      aria-label="Atlas home"
+      aria-label="Nexploring home"
       className="flex shrink-0 items-center gap-2 no-underline"
     >
       <div className="flex size-12 shrink-0 items-center justify-center">
-        <img src="/atlas-logo.svg" alt="Atlas" className="min-size-12" />
+        <img src="/nexploring-logo.svg" alt="" className="min-size-12" />
       </div>
       <span className="hidden text-sm font-bold tracking-[0.08em] text-neutral-50 sm:inline">
-        ATLAS <span className="font-normal text-primary-500">AI</span>
+        NEXPLOR<span className="font-normal text-primary-500">ING</span>
       </span>
     </Link>
   );
