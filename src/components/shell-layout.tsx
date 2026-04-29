@@ -4,10 +4,10 @@ import type { ReactNode } from 'react';
 
 import { TravelerProfileSync } from '@/features/traveler-profile/traveler-profile-sync';
 
-import { BottomNav } from './bottom-nav';
-import { Footer } from './footer';
-import { PurchaseModal } from './purchase-modal';
-import { TopNav } from './top-nav';
+import { BottomNav } from './nav/bottom-nav';
+import { Footer } from './nav/footer';
+import { PurchaseModal } from './nav/purchase-modal';
+import { TopNav } from './nav/top-nav';
 
 export const ShellLayout = ({ children }: { children: ReactNode }) => {
   return (

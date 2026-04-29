@@ -4,8 +4,8 @@ import React from 'react';
 
 import { AuthRemoteGate } from '@/features/auth/auth-remote-gate';
 
+import { RemoteErrorBoundary } from '@/components/remote-error-boundary';
 import { loadRemoteModule } from '@/microfrontends/load-remote-module';
-import { RemoteErrorBoundary } from '@/microfrontends/remote-error-boundary';
 
 const AddCreditsPage = loadRemoteModule('paymentApp', 'AddCreditsPage');
 

@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { RemoteErrorBoundary } from '@/microfrontends/remote-error-boundary';
+import { RemoteErrorBoundary } from '@/components/remote-error-boundary';
 
 vi.mock('@/shared/services/monitoring', () => ({
   monitoring: {
@@ -42,9 +42,7 @@ describe('RemoteErrorBoundary', () => {
     expect(
       screen.getByRole('heading', { name: /Something went wrong/i }),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(/temporarily unavailable/i),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/temporarily unavailable/i)).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: /Try again/i }));
 

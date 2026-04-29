@@ -65,7 +65,7 @@ vi.mock('@/lib/i18n', () => ({
   default: {},
 }));
 
-import { LocaleSwitcher } from '../locale-switcher';
+import { LocaleSwitcher } from '../nav/locale-switcher';
 
 // ── Tests ──────────────────────────────────────────────────────────────────
 

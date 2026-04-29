@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { RemoteRoute } from '@/microfrontends/remote-route';
+import { RemoteRoute } from '@/components/remote-route';
 
 // ── Mocks ──────────────────────────────────────────────────────────────────
 
@@ -16,7 +16,11 @@ vi.mock('@/shared/services/monitoring', () => ({
 }));
 
 vi.mock('@/features/auth/use-session', () => ({
-  useSession: () => ({ isAuthenticated: true, isLoading: false, isUnauthorized: false }),
+  useSession: () => ({
+    isAuthenticated: true,
+    isLoading: false,
+    isUnauthorized: false,
+  }),
 }));
 
 vi.mock('@/features/auth/auth-ui-store', () => ({
@@ -25,9 +29,13 @@ vi.mock('@/features/auth/auth-ui-store', () => ({
 }));
 
 vi.mock('next/link', () => ({
-  default: ({ href, children }: { href: string; children: React.ReactNode }) => (
-    <a href={href}>{children}</a>
-  ),
+  default: ({
+    href,
+    children,
+  }: {
+    href: string;
+    children: React.ReactNode;
+  }) => <a href={href}>{children}</a>,
 }));
 
 // ── Tests ──────────────────────────────────────────────────────────────────
@@ -51,7 +59,9 @@ describe('RemoteRoute', () => {
     );
 
     expect(await screen.findByRole('alert')).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /Something went wrong/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: /Something went wrong/i }),
+    ).toBeInTheDocument();
   });
 
   it('should render the remote module when the lazy import resolves cleanly', async () => {
@@ -69,6 +79,8 @@ describe('RemoteRoute', () => {
       />,
     );
 
-    expect(await screen.findByText(/Healthy remote content/)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/Healthy remote content/),
+    ).toBeInTheDocument();
   });
 });

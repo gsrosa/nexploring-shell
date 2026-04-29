@@ -50,16 +50,22 @@ vi.mock('@/features/auth/auth-ui-store', () => ({
 vi.mock('@gsrosa/nexploring-ui', async (importOriginal) => {
   // eslint-disable-next-line @typescript-eslint/consistent-type-imports
   const actual = await importOriginal<typeof import('@gsrosa/nexploring-ui')>();
-  return { ...actual, cn: (...args: unknown[]) => args.filter(Boolean).join(' ') };
+  return {
+    ...actual,
+    cn: (...args: unknown[]) => args.filter(Boolean).join(' '),
+  };
 });
 
-import { MobileDrawer } from '../mobile-drawer';
+import { MobileDrawer } from '../nav/mobile-drawer';
 
 // ── Tests ──────────────────────────────────────────────────────────────────
 
 describe('MobileDrawer', () => {
   beforeEach(() => {
-    useSessionMock.mockReturnValue({ isAuthenticated: false, isLoading: false });
+    useSessionMock.mockReturnValue({
+      isAuthenticated: false,
+      isLoading: false,
+    });
   });
 
   it('is hidden when isOpen is false', () => {
@@ -82,7 +88,9 @@ describe('MobileDrawer', () => {
     const onClose = vi.fn();
     render(<MobileDrawer isOpen={true} onClose={onClose} />);
 
-    await user.click(screen.getByRole('button', { name: /close navigation menu/i }));
+    await user.click(
+      screen.getByRole('button', { name: /close navigation menu/i }),
+    );
 
     expect(onClose).toHaveBeenCalledOnce();
   });
@@ -92,7 +100,9 @@ describe('MobileDrawer', () => {
     const onClose = vi.fn();
     render(<MobileDrawer isOpen={true} onClose={onClose} />);
 
-    const backdrop = document.querySelector('[aria-hidden="true"]') as HTMLElement;
+    const backdrop = document.querySelector(
+      '[aria-hidden="true"]',
+    ) as HTMLElement;
     await user.click(backdrop);
 
     expect(onClose).toHaveBeenCalledOnce();
@@ -125,7 +135,9 @@ describe('MobileDrawer', () => {
     const nav = screen.getByRole('navigation', { name: /drawer navigation/i });
     expect(nav).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /explore/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /plan trip/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: /plan trip/i }),
+    ).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /my trips/i })).toBeInTheDocument();
   });
 });
