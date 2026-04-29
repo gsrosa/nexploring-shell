@@ -296,7 +296,7 @@ declare const tripItineraryDocumentSchema: z.ZodObject<{
 }>;
 type TripItineraryDocument = z.infer<typeof tripItineraryDocumentSchema>;
 
-/** Wizard + AI answers snapshot (matches nexploring-ai-assistant form state). */
+/** Wizard + AI answers snapshot (matches atlas-ai-assistant form state). */
 type TripFormSnapshot = {
     baseAnswers?: Record<string, string | string[]>;
     aiQuestions?: unknown[];
@@ -453,10 +453,12 @@ declare const appRouter: _trpc_server.TRPCBuiltRouter<{
             };
             output: {
                 user: _supabase_supabase_js.AuthUser;
+                session: _supabase_supabase_js.AuthSession;
                 needsEmailConfirmation: boolean;
                 resumedAsSignIn: true;
             } | {
                 user: _supabase_supabase_js.AuthUser | null;
+                session: _supabase_supabase_js.AuthSession | null;
                 needsEmailConfirmation: boolean;
                 resumedAsSignIn?: undefined;
             };
@@ -469,6 +471,7 @@ declare const appRouter: _trpc_server.TRPCBuiltRouter<{
             };
             output: {
                 user: _supabase_supabase_js.AuthUser;
+                session: _supabase_supabase_js.AuthSession;
             };
             meta: object;
         }>;
